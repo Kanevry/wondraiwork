@@ -122,17 +122,17 @@ React-Renders, aber keine Flicker weil `observe()` nach jedem Re-Render erneut f
 
 ### Process
 
-6. **Nie force-push auf PR-Branches** — refined-github (und die meisten OSS-Repos) squashen beim
+1. **Nie force-push auf PR-Branches** — refined-github (und die meisten OSS-Repos) squashen beim
    Merge automatisch. Force-Push zerstoert den Review-Diff. Bot flaggt das automatisch.
 
-7. **Immer neue Commits oben drauf** — Statt squash + force-push einfach neue Commits pushen. Auch
+2. **Immer neue Commits oben drauf** — Statt squash + force-push einfach neue Commits pushen. Auch
    Lint-Fixes als separater Commit.
 
-8. **CI lokal vollstaendig simulieren ist schwierig** — `no-restricted-syntax` wurde lokal von xo
+3. **CI lokal vollstaendig simulieren ist schwierig** — `no-restricted-syntax` wurde lokal von xo
    nicht als Error gemeldet (nur in CI mit `npm run lint`). Lesson: vor dem Push `npm run lint`
    (nicht `npx xo`) ausfuehren.
 
-9. **Phase 04b haette den force-push verhindert** — "Honest Assessment" Check 5 fragt: "Am I
+4. **Phase 04b haette den force-push verhindert** — "Honest Assessment" Check 5 fragt: "Am I
    submitting because it is ready?" — Ein Check haette den Squash-Impuls hinterfragt.
 
 ### Relevante Selektoren

@@ -61,7 +61,7 @@ high.
 graceful degradation. Full fix requires component takeover or React state access.
 
 **Branch:** `Kanevry/refined-github` `fix/8867-react-nav-selectors` **Tracking:** GitHub #24, GitLab
-#2 **PR:** https://github.com/refined-github/refined-github/pull/9125 (Draft)
+\#2 **PR:** https://github.com/refined-github/refined-github/pull/9125 (Draft)
 
 **2026-03-26 Browser Testing:** Confirmed working on refined-github/refined-github (Bugs 42,
 Releases188) and vercel/next.js (Bugs 1k, Releases1k). Key bug found during testing: new React nav
