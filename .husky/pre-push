@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+echo "Running pre-push checks..."
+
+# Shellcheck all scripts
+pnpm lint
+
+# Prettier check all markdown
+pnpm format:check
+
+# Markdownlint
+pnpm markdownlint
+
+# Full gitleaks scan
+gitleaks detect --source . --verbose
+
+echo "All pre-push checks passed."

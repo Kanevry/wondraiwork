@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+# Get staged files
+STAGED_SH=$(git diff --cached --name-only --diff-filter=ACM | grep '\.sh$' || true)
+STAGED_MD=$(git diff --cached --name-only --diff-filter=ACM | grep '\.md$' || true)
+
+# Shellcheck on staged .sh files
+if [ -n "$STAGED_SH" ]; then
+  echo "Running shellcheck on staged scripts..."
+  echo "$STAGED_SH" | xargs shellcheck
+fi
+
+# Prettier check on staged .md files
+if [ -n "$STAGED_MD" ]; then
+  echo "Running prettier check on staged markdown..."
+  echo "$STAGED_MD" | xargs npx prettier --check
+fi
+
+# Gitleaks on staged changes
+echo "Running gitleaks on staged changes..."
+gitleaks protect --staged --verbose
