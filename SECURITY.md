@@ -8,7 +8,7 @@ files. It does not run in production or handle user data.
 ## Reporting
 
 If you discover a concern in this repository, please open a
-[GitHub Issue](https://github.com/gotzendorfer/wondraiwork/issues) with the label `security`.
+[GitHub Issue](https://github.com/Kanevry/wondraiwork/issues) with the label `security`.
 
 For sensitive matters, email **bernhard@gotzendorfer.at** directly.
 
