@@ -1,0 +1,23 @@
+{
+  "name": "wondraiwork",
+  "version": "0.3.0",
+  "description": "Systematic AI-assisted open source contribution toolkit. Discover issues, evaluate repos, verify fixes, submit PRs.",
+  "author": {
+    "name": "Bernhard Goetzendorfer",
+    "email": "office@gotzendorfer.at"
+  },
+  "homepage": "https://github.com/Kanevry/wondraiwork",
+  "repository": "https://github.com/Kanevry/wondraiwork",
+  "license": "MIT",
+  "keywords": [
+    "open-source",
+    "contribution",
+    "methodology",
+    "ai-assisted",
+    "github",
+    "pull-request",
+    "code-review",
+    "claude-code"
+  ],
+  "skills": ["./skills"]
+}

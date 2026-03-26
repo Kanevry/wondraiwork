@@ -29,5 +29,11 @@ CLAUDE.md
 # Design files (Pencil)
 *.pen
 
+# Playwright MCP (browser automation, session-specific)
+.playwright-mcp/
+
+# Screenshots (session artifacts, not committed)
+screenshot-*.png
+
 # Build artifacts
 dist/
