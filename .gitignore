@@ -1,0 +1,29 @@
+# Cloned target repositories (never committed)
+repos/
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code internals (GitLab only)
+# These are excluded from GitHub via selective push
+.claude/
+CLAUDE.md
+.gitignore.internal
+
+# Build artifacts
+dist/
