@@ -22,6 +22,7 @@
     "MD026": false
   },
   "ignores": [
-    "CLAUDE.md"
+    "CLAUDE.md",
+    "repos/**"
   ]
 }
