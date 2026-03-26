@@ -177,4 +177,4 @@ gh label list --repo "$REPO" --limit 30
 A clear go/no-go decision for your top candidate, documented using the
 [Issue Evaluation Template](./templates/issue-evaluation.md). If no-go, cycle back to Phase 01.
 
-If go, proceed to [Phase 03: Understand](./03-understand.md).
+If go, proceed to [Phase 02b: Owner Briefing](./02b-owner-briefing.md).

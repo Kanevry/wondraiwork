@@ -6,16 +6,17 @@ every decision.
 
 ## The 7 Phases
 
-| Phase | Name                             | Purpose                                            | Time       |
-| ----- | -------------------------------- | -------------------------------------------------- | ---------- |
-| 01    | [Discover](./01-discover.md)     | Find high-impact issues worth solving              | 30-60 min  |
-| 02    | [Evaluate](./02-evaluate.md)     | Assess repo health and issue quality               | 15-30 min  |
-| 03    | [Understand](./03-understand.md) | Map the codebase systematically                    | 1-3 hours  |
-| 04    | [Implement](./04-implement.md)   | Build the fix with quality gates                   | 2-8 hours  |
-| 04b   | [Verify](./04b-verify.md)        | Prove the fix actually works before submitting     | 15-60 min  |
-| 05    | [Submit](./05-submit.md)         | Create a professional PR                           | 30-60 min  |
-| 06    | [Respond](./06-respond.md)       | Handle review feedback and iterate                 | Ongoing    |
-| 07    | [Tracking](./07-tracking.md)     | Issue lifecycle, Clank automation, session handoff | Continuous |
+| Phase | Name                                      | Purpose                                            | Time       |
+| ----- | ----------------------------------------- | -------------------------------------------------- | ---------- |
+| 01    | [Discover](./01-discover.md)              | Find high-impact issues worth solving              | 30-60 min  |
+| 02    | [Evaluate](./02-evaluate.md)              | Assess repo health and issue quality               | 15-30 min  |
+| 02b   | [Owner Briefing](./02b-owner-briefing.md) | Brief owner, get approval before investing time    | 10-20 min  |
+| 03    | [Understand](./03-understand.md)          | Map the codebase systematically                    | 1-3 hours  |
+| 04    | [Implement](./04-implement.md)            | Build the fix with quality gates                   | 2-8 hours  |
+| 04b   | [Verify](./04b-verify.md)                 | Prove the fix actually works before submitting     | 15-60 min  |
+| 05    | [Submit](./05-submit.md)                  | Create a professional PR                           | 30-60 min  |
+| 06    | [Respond](./06-respond.md)                | Handle review feedback and iterate                 | Ongoing    |
+| 07    | [Tracking](./07-tracking.md)              | Issue lifecycle, Clank automation, session handoff | Continuous |
 
 ## Flow Diagram
 
@@ -36,10 +37,20 @@ every decision.
                    No             Yes
                    |               |
                    v               v
-             [Back to 01]   +-------------+
-                            | 03 UNDERSTAND|
-                            | Map codebase |
-                            +------+------+
+             [Back to 01]   +----------------+
+                            | 02b OWNER      |
+                            | BRIEFING       |
+                            +-------+--------+
+                                    |
+                              Owner approves?
+                               /          \
+                             No            Yes
+                             |              |
+                             v              v
+                       [Adjust or    +-------------+
+                        back to 01]  | 03 UNDERSTAND|
+                                     | Map codebase |
+                                     +------+------+
                                    |
                                    v
                             +-------------+
@@ -81,15 +92,16 @@ every decision.
 
 AI (Claude Code or similar) is a force multiplier, not the driver.
 
-| Phase      | AI Role                                     | Human Role                                        |
-| ---------- | ------------------------------------------- | ------------------------------------------------- |
-| Discover   | Surface candidates, calculate scores        | Decide what's worth pursuing                      |
-| Evaluate   | Analyze repo health metrics                 | Make the go/no-go call                            |
-| Understand | Rapid codebase navigation, explain patterns | Build mental model, verify understanding          |
-| Implement  | Draft code, run tests, catch regressions    | Design approach, review every line, own quality   |
-| Verify     | Run checklists, compare screenshots, check  | Make the honest assessment, invoke kill criteria  |
-| Submit     | Draft PR description, check formatting      | Write the narrative, ensure accuracy              |
-| Respond    | Suggest response wording, implement fixes   | Communicate with maintainers, make judgment calls |
+| Phase          | AI Role                                       | Human Role                                        |
+| -------------- | --------------------------------------------- | ------------------------------------------------- |
+| Discover       | Surface candidates, calculate scores          | Decide what's worth pursuing                      |
+| Evaluate       | Analyze repo health metrics                   | Make the go/no-go call                            |
+| Owner Briefing | Present structured briefing, answer questions | Understand the issue, approve or reject           |
+| Understand     | Rapid codebase navigation, explain patterns   | Build mental model, verify understanding          |
+| Implement      | Draft code, run tests, catch regressions      | Design approach, review every line, own quality   |
+| Verify         | Run checklists, compare screenshots, check    | Make the honest assessment, invoke kill criteria  |
+| Submit         | Draft PR description, check formatting        | Write the narrative, ensure accuracy              |
+| Respond        | Suggest response wording, implement fixes     | Communicate with maintainers, make judgment calls |
 
 ## Key Principles
 
@@ -107,6 +119,7 @@ Ready-to-use templates for each phase:
 
 - [Issue Evaluation Template](./templates/issue-evaluation.md) -- Structured scoring for phases
   01-02
+- [Owner Briefing Template](./templates/owner-briefing.md) -- Structured briefing for phase 02b
 - [Target File Template](./templates/target-file.md) -- Living document for tracking a contribution
 - [Codebase Map](./templates/codebase-map.md) -- Documentation template for phase 03
 - [Verification Checklist](./templates/verification-checklist.md) -- Phase 04b verification gate

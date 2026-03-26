@@ -62,6 +62,21 @@ DESCRIPTION=$(echo "$REPO_DATA" | jq -r '.description // "(no description)"')
 HAS_WIKI=$(echo "$REPO_DATA" | jq -r '.has_wiki')
 DEFAULT_BRANCH=$(echo "$REPO_DATA" | jq -r '.default_branch // "main"')
 
+# ── Check for dev/develop branch ──────────────────────────────────────
+info "Checking target branch for PRs..."
+
+PR_TARGET_BRANCH="$DEFAULT_BRANCH"
+DEV_BRANCH_EXISTS=$(gh api "repos/${REPO}/branches/dev" --jq '.name' 2>/dev/null || echo "")
+DEVELOP_BRANCH_EXISTS=$(gh api "repos/${REPO}/branches/develop" --jq '.name' 2>/dev/null || echo "")
+
+if [[ -n "$DEV_BRANCH_EXISTS" ]]; then
+  PR_TARGET_BRANCH="dev"
+  warn "Repo has a 'dev' branch -- PRs likely target 'dev', NOT '${DEFAULT_BRANCH}'"
+elif [[ -n "$DEVELOP_BRANCH_EXISTS" ]]; then
+  PR_TARGET_BRANCH="develop"
+  warn "Repo has a 'develop' branch -- PRs likely target 'develop', NOT '${DEFAULT_BRANCH}'"
+fi
+
 # ── Recent commit activity ──────────────────────────────────────────
 info "Checking recent commit activity..."
 
@@ -112,6 +127,15 @@ info "Checking for CONTRIBUTING.md..."
 
 HAS_CONTRIBUTING="no"
 gh api "repos/${REPO}/contents/CONTRIBUTING.md" >/dev/null 2>&1 && HAS_CONTRIBUTING="yes"
+
+# ── Check for CLA requirement ─────────────────────────────────────────
+info "Checking for CLA requirement..."
+
+HAS_CLA="unknown"
+CLA_BOT=$(gh api "repos/${REPO}/pulls?state=closed&per_page=5" --jq '.[].labels[].name' 2>/dev/null | grep -i "cla" | head -1 || echo "")
+if [[ -n "$CLA_BOT" ]]; then
+  HAS_CLA="yes (label: ${CLA_BOT})"
+fi
 
 # ── Merged community PRs (last 5) — merge speed ─────────────────────
 info "Analyzing community PR merge speed (last 5 merged)..."
@@ -178,6 +202,8 @@ echo "  Last push:       ${PUSHED_AT}"
 echo "  Recent activity: ${RECENT_COMMITS_LABEL}"
 echo "  Archived:        ${ARCHIVED}"
 echo "  CONTRIBUTING.md: ${HAS_CONTRIBUTING}"
+echo "  PR target branch: ${PR_TARGET_BRANCH}"
+echo "  CLA required:     ${HAS_CLA}"
 echo ""
 echo "-- Issue #${ISSUE_NUM} --"
 echo ""
@@ -226,6 +252,11 @@ fi
 
 if [[ "$ISSUE_BODY_LEN" -lt 100 ]]; then
   echo "  [LOW] Issue body is short (${ISSUE_BODY_LEN} chars) -- may lack detail"
+  RISKS=$((RISKS + 1))
+fi
+
+if [[ "$HAS_CLA" == yes* ]]; then
+  echo "  [LOW] CLA signing required before PR merge"
   RISKS=$((RISKS + 1))
 fi
 

@@ -1,16 +1,17 @@
 # [repo-name] #issue-number -- Short description
 
-| Field         | Value                 |
-| ------------- | --------------------- |
-| Repo          | owner/repo (NK stars) |
-| Issue         | [#N](url)             |
-| Language      |                       |
-| Labels        |                       |
-| Reactions     |                       |
-| Assigned      | Yes / No              |
-| Competing PRs |                       |
-| Status        | Open                  |
-| PR            |                       |
+| Field          | Value                 |
+| -------------- | --------------------- |
+| Repo           | owner/repo (NK stars) |
+| Issue          | [#N](url)             |
+| Language       |                       |
+| Labels         |                       |
+| Reactions      |                       |
+| Assigned       | Yes / No              |
+| Competing PRs  |                       |
+| Status         | Open                  |
+| Owner Briefing | Not started           |
+| PR             |                       |
 
 ## Problem
 
@@ -32,6 +33,14 @@
 - Feasibility: N/10 --
 - Visibility: N/10 --
 - **Total: N/30**
+
+## Scoring History
+
+> Track score changes during the contribution lifecycle. Log when any axis changes by 2+ points.
+
+| Date       | Axis        | From | To  | Reason                                   |
+| ---------- | ----------- | ---- | --- | ---------------------------------------- |
+| YYYY-MM-DD | Feasibility | N    | N   | [what changed and why the score shifted] |
 
 ## Approach
 
@@ -66,7 +75,8 @@ Reassessing.
 
 ## Verification Evidence (Phase 04b)
 
-> Complete before submission. Empty until Phase 04b is reached.
+> MANDATORY before status changes to "Submitted". Every checkbox must include evidence, not just a
+> checkmark. Kill Criteria must be explicitly evaluated with rationale.
 
 ### Issue Alignment
 

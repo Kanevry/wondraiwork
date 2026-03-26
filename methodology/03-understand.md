@@ -190,6 +190,8 @@ Regardless of the language, answer these questions before moving to implementati
 - [ ] Do I know the test patterns they use? (mocking strategy, fixtures, assertions)
 - [ ] Have I read the existing tests for the affected code?
 - [ ] Do I understand their commit and PR conventions?
+- [ ] Do I know which branch PRs should target? (main, dev, develop)
+- [ ] Do I know the exact CI commands to run locally?
 
 If any answer is "no", keep exploring before you start implementing.
 
@@ -204,11 +206,19 @@ within 3 hours, the issue might be too complex for a first contribution to this 
 
 ## Output of This Phase
 
-A completed [Codebase Map](./templates/codebase-map.md) covering:
+A completed [Codebase Map](./templates/codebase-map.md) is **mandatory** before proceeding to
+Phase 04. Save it as `repos/<repo-name>/CODEBASE-MAP.md`.
 
-- Files you'll modify
-- The execution path of the fix
+The Codebase Map must cover:
+
+- Files you'll modify (with line numbers or sections)
+- The execution path from trigger to the bug/feature
 - Test files you'll add to or create
-- Conventions you need to follow
+- Conventions you need to follow (commits, code style, imports)
+- The correct target branch for PRs (check CONTRIBUTING.md)
+- CI commands to run locally (exact commands from their CI config)
+
+**Gate:** Do not proceed to Phase 04 until the Codebase Map is complete and answers all checklist
+items above.
 
 Proceed to [Phase 04: Implement](./04-implement.md).
