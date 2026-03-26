@@ -12,6 +12,7 @@ A systematic 6-phase process for making meaningful open-source contributions. Ea
 | 04 | [Implement](./04-implement.md) | Build the fix with quality gates | 2-8 hours |
 | 05 | [Submit](./05-submit.md) | Create a professional PR | 30-60 min |
 | 06 | [Respond](./06-respond.md) | Handle review feedback and iterate | Ongoing |
+| 07 | [Tracking](./07-tracking.md) | Issue lifecycle, Clank automation, session handoff | Continuous |
 
 ## Flow Diagram
 

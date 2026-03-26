@@ -57,6 +57,7 @@ The full methodology is documented in [`methodology/`](./methodology/):
 | Implement | [04-implement.md](./methodology/04-implement.md) | Standards, testing, iteration loops |
 | Submit | [05-submit.md](./methodology/05-submit.md) | PR craft: commits, descriptions, etiquette |
 | Respond | [06-respond.md](./methodology/06-respond.md) | Review feedback and iteration |
+| Tracking | [07-tracking.md](./methodology/07-tracking.md) | Issue lifecycle, automation, session handoff |
 
 ## Contribution Targets
 
