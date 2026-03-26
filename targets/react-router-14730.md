@@ -9,9 +9,9 @@
 | Reactions      | 0                                                                |
 | Assigned       | No                                                               |
 | Competing PRs  | 0                                                                |
-| Status         | Evaluating                                                       |
+| Status         | Submitted                                                        |
 | Owner Briefing | GO (2026-03-26)                                                  |
-| PR             |                                                                  |
+| PR             | [#14936](https://github.com/remix-run/react-router/pull/14936)   |
 
 ## Problem
 
@@ -72,6 +72,7 @@ plugin workaround to remove the `node` condition.
 | 2026-03-26 | Open        | Evaluating  | Selected as target after #14795 pivot     |
 | 2026-03-26 | Evaluating  | In Progress | Owner Briefing GO, proceeding to Phase 03 |
 | 2026-03-26 | In Progress | Verifying   | Implementation complete, full CI green    |
+| 2026-03-26 | Verifying   | Submitted   | PR #14936 submitted against dev           |
 
 ## Risk Assessment
 
