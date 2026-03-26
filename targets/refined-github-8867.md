@@ -9,8 +9,9 @@
 | Reactions     | ~5                                                                           |
 | Assigned      | No                                                                           |
 | Competing PRs | 0                                                                            |
-| Status        | In Progress                                                                  |
-| PR            | [#9125](https://github.com/refined-github/refined-github/pull/9125) (closed) |
+| Status        | Submitted                                                                    |
+| PR            | [#9128](https://github.com/refined-github/refined-github/pull/9128) (draft)  |
+| Previous PR   | [#9125](https://github.com/refined-github/refined-github/pull/9125) (closed) |
 
 ## Problem
 
@@ -89,15 +90,22 @@ noetig fuer stabile Funktion. Siehe contributions/2026-03-26-refined-github-8867
 
 ## Decision Log
 
-| Datum            | Entscheidung                            | Begruendung                                                                   |
-| ---------------- | --------------------------------------- | ----------------------------------------------------------------------------- |
-| 2026-03-26 09:00 | Target gewaehlt (Score 22/30)           | High visibility, help-wanted label, no competing PRs                          |
-| 2026-03-26 12:00 | Feasibility downgrade 9→5               | React UnderlineNav Overflow kann nicht von Content Script kontrolliert werden |
-| 2026-03-26 17:13 | Erster Commit gepusht                   | Dual-Selektoren, isNewRepoNav(), graceful degradation                         |
-| 2026-03-26 18:10 | Browser-Testing Bug gefunden            | Neue Nav hat kein data-hotkey — href$= Fallback noetig                        |
-| 2026-03-26 18:19 | PR #9125 erstellt (Draft)               | Zu frueh — Screenshots zeigten Bugs statt Erfolg                              |
-| 2026-03-26 18:25 | PR #9125 abgelehnt                      | Maintainer sah falsche Styling + nicht funktionierende Features               |
-| 2026-03-26 19:00 | Counter + Styling fixes                 | .Counter, native CSS-Klassen, data-tab-item Fallback                          |
-| 2026-03-26 19:50 | React Re-Render Problem entdeckt        | DOM-Aenderungen werden von React ueberschrieben                               |
-| 2026-03-26 20:00 | Entscheidung: observe()-Refactor noetig | Pre-existing Problem, aber PR ist unvollstaendig ohne Fix                     |
-| 2026-03-26 20:15 | Session-Handoff                         | observe()-Refactor als Folgesession geplant                                   |
+| Datum            | Entscheidung                              | Begruendung                                                                   |
+| ---------------- | ----------------------------------------- | ----------------------------------------------------------------------------- |
+| 2026-03-26 09:00 | Target gewaehlt (Score 22/30)             | High visibility, help-wanted label, no competing PRs                          |
+| 2026-03-26 12:00 | Feasibility downgrade 9→5                 | React UnderlineNav Overflow kann nicht von Content Script kontrolliert werden |
+| 2026-03-26 17:13 | Erster Commit gepusht                     | Dual-Selektoren, isNewRepoNav(), graceful degradation                         |
+| 2026-03-26 18:10 | Browser-Testing Bug gefunden              | Neue Nav hat kein data-hotkey — href$= Fallback noetig                        |
+| 2026-03-26 18:19 | PR #9125 erstellt (Draft)                 | Zu frueh — Screenshots zeigten Bugs statt Erfolg                              |
+| 2026-03-26 18:25 | PR #9125 abgelehnt                        | Maintainer sah falsche Styling + nicht funktionierende Features               |
+| 2026-03-26 19:00 | Counter + Styling fixes                   | .Counter, native CSS-Klassen, data-tab-item Fallback                          |
+| 2026-03-26 19:50 | React Re-Render Problem entdeckt          | DOM-Aenderungen werden von React ueberschrieben                               |
+| 2026-03-26 20:00 | Entscheidung: observe()-Refactor noetig   | Pre-existing Problem, aber PR ist unvollstaendig ohne Fix                     |
+| 2026-03-26 20:15 | Session-Handoff                           | observe()-Refactor als Folgesession geplant                                   |
+| 2026-03-26 20:30 | Session 2: observe()-Refactor gestartet   | bugs-tab + clean-repo-tabs auf observe() umgestellt                           |
+| 2026-03-26 20:45 | Browser-Bug: href$="/issues" matcht nicht | Andere Features aendern Issues-href → data-tab-item="issues" stattdessen      |
+| 2026-03-26 20:50 | Browser E2E Tests bestanden               | 3 Repos, 5x Reload, Navigation-Stability — alles stabil                       |
+| 2026-03-26 21:02 | PR #9128 erstellt (Draft)                 | Sauberer PR mit observe()-Fix, Screenshots in Light Theme                     |
+| 2026-03-26 21:10 | CI Lint-Fehler: no-restricted-syntax      | Comma-Selektoren muessen als Array, nicht String uebergeben werden            |
+| 2026-03-26 21:12 | Force-Push Fehler                         | Bot flagged: nie force-push auf PRs, repos squashen beim Merge automatisch    |
+| 2026-03-26 21:15 | PR eingereicht, warten auf Review         | Screenshots eingefuegt, Draft → Ready for Review                              |
