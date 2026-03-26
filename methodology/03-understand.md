@@ -1,18 +1,22 @@
 # Phase 03: Understand
 
-Systematically explore an unfamiliar codebase until you know enough to implement the fix confidently. Resist the urge to start coding before you understand the terrain.
+Systematically explore an unfamiliar codebase until you know enough to implement the fix
+confidently. Resist the urge to start coding before you understand the terrain.
 
 ## First Steps (15 minutes)
 
-Every repo, regardless of language or framework, has the same essential documents. Read them in this order:
+Every repo, regardless of language or framework, has the same essential documents. Read them in this
+order:
 
 ### 1. README
 
-Build instructions, architecture overview, prerequisites. If you can't build the project, nothing else matters.
+Build instructions, architecture overview, prerequisites. If you can't build the project, nothing
+else matters.
 
 ### 2. CONTRIBUTING.md
 
-Commit conventions, branch naming, test requirements, code style. These are the rules you must follow.
+Commit conventions, branch naming, test requirements, code style. These are the rules you must
+follow.
 
 ### 3. CI Configuration
 
@@ -25,7 +29,8 @@ ls -la Makefile Justfile Taskfile.yml .gitlab-ci.yml Jenkinsfile \
   .circleci/config.yml .travis.yml 2>/dev/null
 ```
 
-The CI config tells you exactly what the maintainers enforce: which linters, which test suites, which checks must pass. This is the objective quality bar.
+The CI config tells you exactly what the maintainers enforce: which linters, which test suites,
+which checks must pass. This is the objective quality bar.
 
 ### 4. Architecture Docs
 
@@ -88,7 +93,8 @@ head -30 $(find . -name "*.test.*" | head -1)
 
 ## Codebase Mapping Technique
 
-Build a mental (and written) map of the relevant parts. Use the [Codebase Map Template](./templates/codebase-map.md).
+Build a mental (and written) map of the relevant parts. Use the
+[Codebase Map Template](./templates/codebase-map.md).
 
 ### Layer 1: Directory Structure
 
@@ -143,7 +149,8 @@ ls tsconfig*.json Cargo.toml go.mod *.csproj 2>/dev/null
 
 ## Using AI for Rapid Understanding
 
-AI tools excel at codebase exploration. Use them as an accelerator, not a replacement for your own understanding.
+AI tools excel at codebase exploration. Use them as an accelerator, not a replacement for your own
+understanding.
 
 ### Effective AI prompts for codebase exploration:
 
@@ -155,15 +162,21 @@ AI tools excel at codebase exploration. Use them as an accelerator, not a replac
 
 ### Keep the human in the loop:
 
-- **Verify claims.** AI can hallucinate function names, file paths, or behaviors. Spot-check by reading the actual code.
-- **Build your own mental model.** Don't just relay AI's summary. Redraw the call chain in your own words.
-- **Ask "why" not just "what."** Understanding the design rationale helps you make changes that fit the codebase's philosophy.
+- **Verify claims.** AI can hallucinate function names, file paths, or behaviors. Spot-check by
+  reading the actual code.
+- **Build your own mental model.** Don't just relay AI's summary. Redraw the call chain in your own
+  words.
+- **Ask "why" not just "what."** Understanding the design rationale helps you make changes that fit
+  the codebase's philosophy.
 
 ### Anti-patterns:
 
-- Asking AI to "fix the issue" before you understand the codebase. You'll get code that compiles but doesn't fit.
-- Trusting AI's architectural summary without verifying key claims. Models compress and simplify -- sometimes incorrectly.
-- Skipping the test suite. AI might not mention that your change area has 200 tests with subtle assertions.
+- Asking AI to "fix the issue" before you understand the codebase. You'll get code that compiles but
+  doesn't fit.
+- Trusting AI's architectural summary without verifying key claims. Models compress and simplify --
+  sometimes incorrectly.
+- Skipping the test suite. AI might not mention that your change area has 200 tests with subtle
+  assertions.
 
 ## Language-Agnostic Checklist
 
@@ -182,7 +195,8 @@ If any answer is "no", keep exploring before you start implementing.
 
 ## Time Boxing
 
-Set a hard limit of 3 hours for this phase. If you can't understand enough to start implementing within 3 hours, the issue might be too complex for a first contribution to this repo. Consider:
+Set a hard limit of 3 hours for this phase. If you can't understand enough to start implementing
+within 3 hours, the issue might be too complex for a first contribution to this repo. Consider:
 
 1. Picking a simpler issue in the same repo first (build familiarity)
 2. Asking a clarifying question on the issue
@@ -191,6 +205,7 @@ Set a hard limit of 3 hours for this phase. If you can't understand enough to st
 ## Output of This Phase
 
 A completed [Codebase Map](./templates/codebase-map.md) covering:
+
 - Files you'll modify
 - The execution path of the fix
 - Test files you'll add to or create

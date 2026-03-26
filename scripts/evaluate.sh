@@ -41,8 +41,9 @@ command -v gh >/dev/null 2>&1 || die "gh CLI is required but not found"
 gh auth status >/dev/null 2>&1 || die "gh CLI is not authenticated"
 command -v jq >/dev/null 2>&1 || die "jq is required but not found"
 
-OWNER="${REPO%%/*}"
-REPO_NAME="${REPO##*/}"
+# Used in output formatting
+export OWNER="${REPO%%/*}"
+export REPO_NAME="${REPO##*/}"
 
 # ── Fetch repo data ─────────────────────────────────────────────────
 info "Fetching repository data for ${REPO}..."
@@ -57,6 +58,7 @@ LICENSE=$(echo "$REPO_DATA" | jq -r '.license.spdx_id // "none"')
 ARCHIVED=$(echo "$REPO_DATA" | jq -r '.archived')
 PUSHED_AT=$(echo "$REPO_DATA" | jq -r '.pushed_at // "unknown"')
 DESCRIPTION=$(echo "$REPO_DATA" | jq -r '.description // "(no description)"')
+# shellcheck disable=SC2034
 HAS_WIKI=$(echo "$REPO_DATA" | jq -r '.has_wiki')
 DEFAULT_BRANCH=$(echo "$REPO_DATA" | jq -r '.default_branch // "main"')
 

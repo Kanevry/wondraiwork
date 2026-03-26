@@ -1,6 +1,7 @@
 # Phase 02: Evaluate
 
-Before investing hours in a contribution, verify that the repo is healthy, the issue is real, and the path to merge is clear. This phase prevents wasted effort.
+Before investing hours in a contribution, verify that the repo is healthy, the issue is real, and
+the path to merge is clear. This phase prevents wasted effort.
 
 ## Repo Health Signals
 
@@ -21,13 +22,13 @@ gh issue list --repo "$REPO" --state closed --limit 10 \
 gh api "repos/$REPO/stats/contributors" --jq '.[].author.login' | head -20
 ```
 
-| Signal | Healthy | Warning |
-|--------|---------|---------|
-| Last merged PR | < 2 weeks ago | > 2 months ago |
-| Median PR merge time | < 2 weeks | > 2 months |
-| Open PRs | < 50 or proportional to activity | 200+ with many stale |
-| Maintainer issue replies | Within 1 week | No response for months |
-| External contributor PRs merged | Multiple in last 3 months | None in 6+ months |
+| Signal                          | Healthy                          | Warning                |
+| ------------------------------- | -------------------------------- | ---------------------- |
+| Last merged PR                  | < 2 weeks ago                    | > 2 months ago         |
+| Median PR merge time            | < 2 weeks                        | > 2 months             |
+| Open PRs                        | < 50 or proportional to activity | 200+ with many stale   |
+| Maintainer issue replies        | Within 1 week                    | No response for months |
+| External contributor PRs merged | Multiple in last 3 months        | None in 6+ months      |
 
 ### CI Status
 
@@ -39,7 +40,8 @@ gh run list --repo "$REPO" --branch main --limit 5
 gh api "repos/$REPO/contents/.github/workflows" --jq '.[].name' 2>/dev/null
 ```
 
-A repo with broken CI on the default branch is a red flag. You'll be fighting infrastructure instead of shipping code.
+A repo with broken CI on the default branch is a red flag. You'll be fighting infrastructure instead
+of shipping code.
 
 ### Contributor Guidelines
 
@@ -54,27 +56,30 @@ gh api "repos/$REPO/contents/.github/PULL_REQUEST_TEMPLATE.md" \
   --jq '.name' 2>/dev/null
 ```
 
-Projects with clear contribution guidelines signal that they expect and welcome external PRs. No guidelines means higher risk of arbitrary review standards.
+Projects with clear contribution guidelines signal that they expect and welcome external PRs. No
+guidelines means higher risk of arbitrary review standards.
 
 ## Issue Quality Signals
 
 ### Specification Clarity
 
-| Quality | Indicator |
-|---------|-----------|
-| High | Reproduction steps, expected vs actual behavior, environment details |
-| Medium | Problem described but missing steps or context |
-| Low | One-liner with no context, "this doesn't work" |
+| Quality | Indicator                                                            |
+| ------- | -------------------------------------------------------------------- |
+| High    | Reproduction steps, expected vs actual behavior, environment details |
+| Medium  | Problem described but missing steps or context                       |
+| Low     | One-liner with no context, "this doesn't work"                       |
 
 ### Acceptance Criteria
 
 Look for explicit or implicit criteria:
+
 - Maintainer comments defining scope ("the fix should only affect X")
 - Linked tests that should pass
 - References to specific code locations
 - Labels like `accepted`, `confirmed`, `triaged`
 
-Issues that have been triaged and labeled by a maintainer are significantly safer targets than untriaged community reports.
+Issues that have been triaged and labeled by a maintainer are significantly safer targets than
+untriaged community reports.
 
 ### Reproducibility
 
@@ -91,7 +96,8 @@ cat README.md | head -50  # Build instructions
 # Run the failing test case if mentioned in the issue
 ```
 
-If you can't reproduce the issue, comment on the issue asking for clarification before investing more time.
+If you can't reproduce the issue, comment on the issue asking for clarification before investing
+more time.
 
 ## Competition Check
 
@@ -117,29 +123,30 @@ gh issue view "$ISSUE" --repo "$REPO" --json comments \
   --jq '.comments[].body' | grep -i "work on\|working on\|take this\|claim"
 ```
 
-| Situation | Action |
-|-----------|--------|
-| No PRs, no assignee, no claims | Proceed |
-| Assigned but no activity for 30+ days | Comment asking if it's still being worked on |
-| Open PR exists but stale (60+ days, no response) | Check if maintainer requested changes that were never addressed. You may offer to take over. |
-| Active PR in progress | Move to another issue |
-| Closed PR that was rejected | Read why it was rejected. If the approach was wrong but the issue is valid, you can try a different approach. |
+| Situation                                        | Action                                                                                                        |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| No PRs, no assignee, no claims                   | Proceed                                                                                                       |
+| Assigned but no activity for 30+ days            | Comment asking if it's still being worked on                                                                  |
+| Open PR exists but stale (60+ days, no response) | Check if maintainer requested changes that were never addressed. You may offer to take over.                  |
+| Active PR in progress                            | Move to another issue                                                                                         |
+| Closed PR that was rejected                      | Read why it was rejected. If the approach was wrong but the issue is valid, you can try a different approach. |
 
 ## Go/No-Go Decision Framework
 
 Score each criterion as Pass/Fail:
 
-| # | Criterion | Check |
-|---|-----------|-------|
-| 1 | Repo merged external PRs in last 3 months | `gh pr list --state merged` |
-| 2 | Issue acknowledged by maintainer | Comments from members/owners |
-| 3 | No competing active PR | PR search |
-| 4 | CI is green on default branch | `gh run list` |
-| 5 | You can build the project locally | Clone and build |
-| 6 | Scope is estimable (hours, not weeks) | Your judgment |
-| 7 | You have the required domain knowledge (or can learn it) | Honest self-assessment |
+| #   | Criterion                                                | Check                        |
+| --- | -------------------------------------------------------- | ---------------------------- |
+| 1   | Repo merged external PRs in last 3 months                | `gh pr list --state merged`  |
+| 2   | Issue acknowledged by maintainer                         | Comments from members/owners |
+| 3   | No competing active PR                                   | PR search                    |
+| 4   | CI is green on default branch                            | `gh run list`                |
+| 5   | You can build the project locally                        | Clone and build              |
+| 6   | Scope is estimable (hours, not weeks)                    | Your judgment                |
+| 7   | You have the required domain knowledge (or can learn it) | Honest self-assessment       |
 
 **Decision rules:**
+
 - All 7 pass: Strong go. Proceed to Phase 03.
 - 1-2 fail: Conditional go. Note the risks, decide if they're acceptable.
 - 3+ fail: No-go. Return to Phase 01 and pick the next candidate.
@@ -167,6 +174,7 @@ gh label list --repo "$REPO" --limit 30
 
 ## Output of This Phase
 
-A clear go/no-go decision for your top candidate, documented using the [Issue Evaluation Template](./templates/issue-evaluation.md). If no-go, cycle back to Phase 01.
+A clear go/no-go decision for your top candidate, documented using the
+[Issue Evaluation Template](./templates/issue-evaluation.md). If no-go, cycle back to Phase 01.
 
 If go, proceed to [Phase 03: Understand](./03-understand.md).

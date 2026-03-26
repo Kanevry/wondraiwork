@@ -1,0 +1,27 @@
+{
+  "config": {
+    // Prettier handles line wrapping
+    "MD013": false,
+    // Inline HTML needed for badges, images, alignment in README
+    "MD033": false,
+    // Some files don't start with H1 (e.g. files with frontmatter)
+    "MD041": false,
+    // Allow duplicate headings in sibling sections
+    "MD024": {
+      "siblings_only": true
+    },
+    // Compact format without blank lines around headings
+    "MD022": false,
+    // Compact format without blank lines around lists
+    "MD032": false,
+    // Some code blocks are intentionally language-free
+    "MD040": false,
+    // Bare URLs acceptable in templates and docs
+    "MD034": false,
+    // Trailing punctuation in headings (colons in methodology)
+    "MD026": false
+  },
+  "ignores": [
+    "CLAUDE.md"
+  ]
+}

@@ -20,6 +20,7 @@ git checkout -b fix/issue-1234-description
 ```
 
 **Branch naming:** Follow the repo's convention if documented. If not, use a descriptive name:
+
 - `fix/1234-null-check-in-parser`
 - `feat/1234-add-timeout-option`
 
@@ -65,6 +66,7 @@ git log --oneline -20
 ```
 
 Common formats:
+
 - Conventional Commits: `fix(parser): handle null input in tokenizer`
 - Angular style: `fix(core): resolve race condition in scheduler`
 - Plain descriptive: `Fix null pointer when input is empty`
@@ -102,9 +104,11 @@ When applicable, write the test first:
 4. **Run the full test suite** to catch regressions
 5. **Refactor** if needed, ensuring tests still pass
 
-This approach works particularly well for bug fixes where there's a clear expected vs actual behavior.
+This approach works particularly well for bug fixes where there's a clear expected vs actual
+behavior.
 
-When TDD doesn't fit (refactoring, performance, or when you need to understand the code structure before writing tests), implement first but still write tests before submitting.
+When TDD doesn't fit (refactoring, performance, or when you need to understand the code structure
+before writing tests), implement first but still write tests before submitting.
 
 ## Iteration Loop
 
@@ -180,6 +184,7 @@ git diff
 ```
 
 Ask yourself:
+
 - Does this change only what's necessary?
 - Would I approve this PR if someone else submitted it?
 - Are there any leftover debug statements, comments, or TODOs?
@@ -223,11 +228,13 @@ Maintainers review focused PRs faster and more favorably than sprawling ones.
 
 ### Premature Optimization
 
-Don't refactor code that isn't directly related to your fix. Even if it's "obviously better." The maintainers have context you don't.
+Don't refactor code that isn't directly related to your fix. Even if it's "obviously better." The
+maintainers have context you don't.
 
 ### Missing Error Handling
 
-If you're adding a new code path, handle errors the same way the surrounding code does. Don't introduce a new error handling pattern.
+If you're adding a new code path, handle errors the same way the surrounding code does. Don't
+introduce a new error handling pattern.
 
 ## Quality Gate: Local CI
 
@@ -247,7 +254,8 @@ cargo test          # Full test suite
 cargo fmt -- --check  # Formatter
 ```
 
-**Rule: if it doesn't pass locally, don't push it.** CI should confirm your work, not be your first feedback loop. Failing CI wastes maintainer attention and slows down your review.
+**Rule: if it doesn't pass locally, don't push it.** CI should confirm your work, not be your first
+feedback loop. Failing CI wastes maintainer attention and slows down your review.
 
 ## Atomic Commits
 
@@ -258,7 +266,8 @@ fix(parser): add null check for empty input       # The actual fix
 test(parser): add test for null input handling     # The test
 ```
 
-If the repo squash-merges (most popular projects do), your individual commit structure matters less for the final history -- but it still helps reviewers understand your thought process.
+If the repo squash-merges (most popular projects do), your individual commit structure matters less
+for the final history -- but it still helps reviewers understand your thought process.
 
 ## Output of This Phase
 

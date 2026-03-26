@@ -17,7 +17,7 @@ assignees: ""
 ### Scoring
 
 | Dimension   | Score (1-10) | Notes |
-|-------------|:------------:|-------|
+| ----------- | :----------: | ----- |
 | Impact      |              |       |
 | Feasibility |              |       |
 | Visibility  |              |       |
@@ -37,17 +37,18 @@ assignees: ""
 
 **Why this issue?**
 
-
 **What does the fix/feature involve?**
 
-
 **Estimated effort:**
+
 <!-- S (< 2h), M (2-8h), L (1-3d), XL (3d+) -->
 
 **Competing PRs:**
+
 <!-- Output from evaluate.sh or manual check -->
 
 **Merge speed (community PRs):**
+
 <!-- Average days from evaluate.sh -->
 
 ### Contribution Plan
@@ -57,4 +58,3 @@ assignees: ""
 3.
 
 ### Notes
-

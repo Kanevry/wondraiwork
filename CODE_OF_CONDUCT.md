@@ -39,7 +39,7 @@ officially representing the community in public spaces.
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community
-leaders responsible for enforcement at **bernhard@gotzendorfer.at**.
+leaders responsible for enforcement at **[office@gotzendorfer.at](mailto:office@gotzendorfer.at)**.
 
 All complaints will be reviewed and investigated promptly and fairly.
 

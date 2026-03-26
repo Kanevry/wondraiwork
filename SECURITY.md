@@ -10,7 +10,7 @@ files. It does not run in production or handle user data.
 If you discover a concern in this repository, please open a
 [GitHub Issue](https://github.com/Kanevry/wondraiwork/issues) with the label `security`.
 
-For sensitive matters, email **bernhard@gotzendorfer.at** directly.
+For sensitive matters, email **[office@gotzendorfer.at](mailto:office@gotzendorfer.at)** directly.
 
 ## Response
 

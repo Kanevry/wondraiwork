@@ -4,14 +4,14 @@
 
 ## Project Overview
 
-| Field | Value |
-|-------|-------|
-| Repo | `owner/repo` |
-| Language(s) | |
-| Framework(s) | |
-| Package manager | |
-| Build tool | |
-| Minimum runtime version | |
+| Field                   | Value        |
+| ----------------------- | ------------ |
+| Repo                    | `owner/repo` |
+| Language(s)             |              |
+| Framework(s)            |              |
+| Package manager         |              |
+| Build tool              |              |
+| Minimum runtime version |              |
 
 ## Architecture
 
@@ -27,10 +27,10 @@ repo-root/
 ### Key Modules (relevant to the issue)
 
 | Module / Directory | Purpose | Key Files |
-|--------------------|---------|-----------|
-| | | |
-| | | |
-| | | |
+| ------------------ | ------- | --------- |
+|                    |         |           |
+|                    |         |           |
+|                    |         |           |
 
 ### Data Flow
 
@@ -43,10 +43,10 @@ Describe how data flows through the relevant part of the system:
 ## Files to Modify
 
 | File | Change Required | Why |
-|------|----------------|-----|
-| | | |
-| | | |
-| | | |
+| ---- | --------------- | --- |
+|      |                 |     |
+|      |                 |     |
+|      |                 |     |
 
 ## Execution Path (for the issue)
 
@@ -58,32 +58,32 @@ Trace the code path from trigger to the bug/feature:
 
 ## Test Patterns
 
-| Aspect | Convention |
-|--------|-----------|
-| Test framework | |
-| Test file location | (co-located / `__tests__/` / `tests/` / etc.) |
-| Test file naming | (`*.test.ts` / `*_test.go` / `test_*.py` / etc.) |
-| Mocking approach | (jest.mock / testify / unittest.mock / etc.) |
-| Fixture management | (inline / files / factories / etc.) |
-| Assertion style | (expect / assert / should / etc.) |
+| Aspect             | Convention                                       |
+| ------------------ | ------------------------------------------------ |
+| Test framework     |                                                  |
+| Test file location | (co-located / `__tests__/` / `tests/` / etc.)    |
+| Test file naming   | (`*.test.ts` / `*_test.go` / `test_*.py` / etc.) |
+| Mocking approach   | (jest.mock / testify / unittest.mock / etc.)     |
+| Fixture management | (inline / files / factories / etc.)              |
+| Assertion style    | (expect / assert / should / etc.)                |
 
 ### Existing Tests for Affected Code
 
 | Test File | What It Covers | Relevant to My Change |
-|-----------|---------------|----------------------|
-| | | |
-| | | |
+| --------- | -------------- | --------------------- |
+|           |                |                       |
+|           |                |                       |
 
 ## CI Pipeline
 
-| Step | Tool | Config File |
-|------|------|-------------|
-| Build | | |
-| Lint | | |
-| Format check | | |
-| Test | | |
-| Type check | | |
-| Other | | |
+| Step         | Tool | Config File |
+| ------------ | ---- | ----------- |
+| Build        |      |             |
+| Lint         |      |             |
+| Format check |      |             |
+| Test         |      |             |
+| Type check   |      |             |
+| Other        |      |             |
 
 ### How to Run Locally
 
@@ -106,29 +106,29 @@ ___
 
 ## Conventions
 
-| Aspect | Convention |
-|--------|-----------|
-| Commit format | |
-| Branch naming | |
-| PR template | Yes / No |
-| Code style config | (prettier / eslint / rustfmt / etc.) |
-| Import ordering | |
-| Error handling pattern | |
-| Logging pattern | |
+| Aspect                 | Convention                           |
+| ---------------------- | ------------------------------------ |
+| Commit format          |                                      |
+| Branch naming          |                                      |
+| PR template            | Yes / No                             |
+| Code style config      | (prettier / eslint / rustfmt / etc.) |
+| Import ordering        |                                      |
+| Error handling pattern |                                      |
+| Logging pattern        |                                      |
 
 ## Dependencies (relevant)
 
 | Dependency | Version | Why It Matters |
-|------------|---------|----------------|
-| | | |
-| | | |
+| ---------- | ------- | -------------- |
+|            |         |                |
+|            |         |                |
 
 ## Open Questions
 
 Things I still need to clarify before or during implementation:
 
-- [ ] ___
-- [ ] ___
+- [ ] ***
+- [ ] ***
 
 ## Notes
 

@@ -37,6 +37,7 @@ command -v gh >/dev/null 2>&1 || die "gh CLI is required but not found"
 gh auth status >/dev/null 2>&1 || die "gh CLI is not authenticated"
 command -v git >/dev/null 2>&1 || die "git is required but not found"
 
+# shellcheck disable=SC2034
 OWNER="${REPO%%/*}"
 REPO_NAME="${REPO##*/}"
 
@@ -166,6 +167,7 @@ else
   info "Creating codebase map stub: ${MAP_FILE}"
 
   # Count top-level dirs and files for the stub
+  # shellcheck disable=SC2012
   TOP_LEVEL=$(ls -1 "$TARGET_DIR" | head -n 30)
 
   cat > "$MAP_FILE" << MAPEOF

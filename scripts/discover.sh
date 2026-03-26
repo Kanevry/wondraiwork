@@ -108,6 +108,7 @@ run_search() {
   print_header "$strategy_name"
 
   local results
+  # shellcheck disable=SC2086
   results=$(gh search issues $SEARCH_QUALIFIERS "${BASE_FLAGS[@]}" "${extra_flags[@]}" 2>/dev/null) || {
     echo "| (search failed or returned no results)"
     print_footer

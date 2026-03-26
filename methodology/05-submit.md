@@ -7,20 +7,24 @@ Create a PR that respects the maintainer's time and makes the review process as 
 The title is the first (and sometimes only) thing a maintainer reads in their notification feed.
 
 **Rules:**
+
 - Under 70 characters
 - Imperative mood ("Fix X" not "Fixed X" or "Fixing X")
 - Reference the issue number if the repo convention includes it
 - Describe the change, not the problem
 
 **Good:**
+
 - `Fix null pointer in parser when input is empty (#1234)`
 - `Add timeout option to HTTP client`
 - `Handle edge case in date formatting for leap years`
 
 **Bad:**
+
 - `Update parser.ts` (what did you change?)
 - `Fixes #1234` (what does the fix do?)
-- `Resolve the issue where the parser throws a null pointer exception when the input string is empty which causes a crash` (too long)
+- `Resolve the issue where the parser throws a null pointer exception when the input string is empty which causes a crash`
+  (too long)
 - `WIP: maybe fix parser` (not ready, don't submit)
 
 ## PR Body
@@ -38,14 +42,13 @@ Fixes #1234
 
 ## Why
 
-Context on why this change is needed. Link to the issue, explain
-the root cause if it's a bug fix. For features, explain the use case.
+Context on why this change is needed. Link to the issue, explain the root cause if it's a bug fix.
+For features, explain the use case.
 
 ## How
 
-Technical summary of the approach. What files were changed and why.
-If there were alternative approaches, briefly mention why you chose
-this one.
+Technical summary of the approach. What files were changed and why. If there were alternative
+approaches, briefly mention why you chose this one.
 
 ## Test Plan
 
@@ -60,10 +63,12 @@ this one.
 
 ### Tips for the Body
 
-- **Link the issue.** Use `Fixes #1234` (auto-closes on merge) or `Relates to #1234` (doesn't auto-close).
+- **Link the issue.** Use `Fixes #1234` (auto-closes on merge) or `Relates to #1234` (doesn't
+  auto-close).
 - **Keep it scannable.** Maintainers review dozens of PRs. Bullet points and headers help.
 - **Show your work.** If you investigated multiple approaches, mention why you picked this one.
-- **Be honest about trade-offs.** If your fix has limitations, say so upfront. Maintainers respect transparency.
+- **Be honest about trade-offs.** If your fix has limitations, say so upfront. Maintainers respect
+  transparency.
 
 If the repo has a PR template, use it instead. Fill out every section.
 
@@ -99,16 +104,19 @@ Fixes #1234
 git rebase -i HEAD~3  # Interactive rebase to clean up
 ```
 
-If the project squash-merges (check their merge settings), individual commit cleanliness matters less -- but it still shows professionalism.
+If the project squash-merges (check their merge settings), individual commit cleanliness matters
+less -- but it still shows professionalism.
 
 ## Screenshots and Recordings
 
 Include visual evidence when:
+
 - The change affects UI
 - The bug had visible symptoms
 - A terminal output demonstrates the fix
 
 Tools:
+
 - Screenshots: OS built-in, or `gh` can attach images
 - Terminal recordings: [asciinema](https://asciinema.org/) or screen recordings
 - Before/after comparisons are highly effective
@@ -170,7 +178,8 @@ EOF
 
 ### Force-Pushing After Review
 
-Never force-push after a reviewer has commented. It destroys their review context. Push new commits instead.
+Never force-push after a reviewer has commented. It destroys their review context. Push new commits
+instead.
 
 ```bash
 # After addressing review feedback, push additional commits
@@ -185,25 +194,30 @@ git push origin fix/issue-1234-description
 
 ### No Issue Reference
 
-Orphan PRs with no linked issue make maintainers suspicious. If there's no existing issue, create one first and reference it.
+Orphan PRs with no linked issue make maintainers suspicious. If there's no existing issue, create
+one first and reference it.
 
 ### Requesting Review Too Aggressively
 
-Don't @-mention maintainers in the PR body unless the repo's contributing guide says to. The PR itself is the request for review. If there's no response after 1-2 weeks, a polite comment is fine.
+Don't @-mention maintainers in the PR body unless the repo's contributing guide says to. The PR
+itself is the request for review. If there's no response after 1-2 weeks, a polite comment is fine.
 
 ### Submitting During Weekends or Holidays
 
-Not a hard rule, but PRs submitted during business hours (for the maintainers' timezone) tend to get faster initial responses.
+Not a hard rule, but PRs submitted during business hours (for the maintainers' timezone) tend to get
+faster initial responses.
 
 ## After Submitting
 
 1. **Watch CI.** If it fails, fix it immediately. A PR with failing CI signals carelessness.
-2. **Respond to the bot.** Some repos have automated checks (CLA signing, label requirements). Handle these promptly.
+2. **Respond to the bot.** Some repos have automated checks (CLA signing, label requirements).
+   Handle these promptly.
 3. **Be patient.** Maintainers are often volunteers. Give them at least a week before following up.
 
 ## Output of This Phase
 
 A submitted PR with:
+
 - Clean, descriptive title
 - Structured body with what/why/how/test plan
 - All CI checks passing
