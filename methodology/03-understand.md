@@ -191,6 +191,8 @@ Regardless of the language, answer these questions before moving to implementati
 - [ ] Have I read the existing tests for the affected code?
 - [ ] Do I understand their commit and PR conventions?
 - [ ] Do I know which branch PRs should target? (main, dev, develop)
+- [ ] Does the repo require a CLA? If yes, is it already signed? (check for contributors.yml,
+      CLA.md, or CLA bot in recent PRs)
 - [ ] Do I know the exact CI commands to run locally?
 
 If any answer is "no", keep exploring before you start implementing.
