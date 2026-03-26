@@ -29,7 +29,7 @@ MAX_AGE_DAYS=90
 STRATEGY=""
 
 usage() {
-  sed -n '/^# Usage:/,/^# ─/p' "$0" | head -n -1 | sed 's/^# //' | sed 's/^#//'
+  sed -n '/^# Usage:/,/^# ─/p' "$0" | sed '$d' | sed 's/^# //' | sed 's/^#//'
   exit 0
 }
 
@@ -60,18 +60,21 @@ else
   SINCE_DATE=$(date -d "-${MAX_AGE_DAYS} days" +%Y-%m-%d)
 fi
 
-# ── Build base qualifiers ───────────────────────────────────────────
-BASE_QUALIFIERS="is:open is:issue stars:>=${MIN_STARS} created:>=${SINCE_DATE}"
+# ── Build base flags ───────────────────────────────────────────────
+# gh search issues uses flags (--state, --label, --language) not inline qualifiers
+BASE_FLAGS=(--state=open --limit="$LIMIT" --json "title,repository,commentsCount,createdAt,url,labels")
 if [[ -n "$LANGUAGE" ]]; then
-  BASE_QUALIFIERS="$BASE_QUALIFIERS language:${LANGUAGE}"
+  BASE_FLAGS+=(--language="$LANGUAGE")
 fi
 if [[ -n "$EXTRA_LABEL" ]]; then
-  BASE_QUALIFIERS="$BASE_QUALIFIERS label:${EXTRA_LABEL}"
+  BASE_FLAGS+=(--label="$EXTRA_LABEL")
 fi
+# Stars and date filters are passed as search qualifiers (positional)
+SEARCH_QUALIFIERS="stars:>=${MIN_STARS} created:>=${SINCE_DATE}"
 
 # ── Formatting ───────────────────────────────────────────────────────
-SEPARATOR="+---------------------------------------------------------+-----------------------------+----------+----------+----------+"
-HEADER=$(printf "| %-55s | %-27s | %-8s | %-8s | %-8s |" "ISSUE" "REPO" "REACT" "COMMENTS" "CREATED")
+SEPARATOR="+---------------------------------------------------------+-----------------------------+----------+------------+"
+HEADER=$(printf "| %-55s | %-27s | %-8s | %-10s |" "ISSUE" "REPO" "COMMENTS" "CREATED")
 
 print_header() {
   local strategy_name="$1"
@@ -99,24 +102,20 @@ print_footer() {
 # ── Search execution ─────────────────────────────────────────────────
 run_search() {
   local strategy_name="$1"
-  local qualifiers="$2"
-  local sort_flag="$3"
+  shift
+  local -a extra_flags=("$@")
 
   print_header "$strategy_name"
 
   local results
-  results=$(gh search issues $qualifiers \
-    --sort="$sort_flag" \
-    --order=desc \
-    --limit="$LIMIT" \
-    --json "title,repository,reactions,comments,createdAt,url" 2>/dev/null) || {
+  results=$(gh search issues $SEARCH_QUALIFIERS "${BASE_FLAGS[@]}" "${extra_flags[@]}" 2>/dev/null) || {
     echo "| (search failed or returned no results)"
     print_footer
     return
   }
 
   local count
-  count=$(echo "$results" | gh api --input - /dev/null --jq 'length' 2>/dev/null || echo "$results" | python3 -c "import sys,json; print(len(json.load(sys.stdin)))" 2>/dev/null || echo "0")
+  count=$(echo "$results" | python3 -c "import sys,json; print(len(json.load(sys.stdin)))" 2>/dev/null || echo "0")
 
   if [[ "$count" == "0" || -z "$results" || "$results" == "[]" ]]; then
     echo "| (no results)"
@@ -131,21 +130,18 @@ for item in data:
     title = item.get('title', '(no title)')
     repo_data = item.get('repository', {})
     repo = repo_data.get('nameWithOwner', repo_data.get('name', '?'))
-    reactions = item.get('reactions', {})
-    if isinstance(reactions, dict):
-        react_count = reactions.get('totalCount', sum(v for v in reactions.values() if isinstance(v, int)))
-    else:
-        react_count = reactions
-    comments = item.get('comments', 0)
+    comments = item.get('commentsCount', 0)
     created = item.get('createdAt', '?')[:10]
     url = item.get('url', '')
-    # Truncate
+    labels = ', '.join(l.get('name', '') for l in item.get('labels', []))
     if len(title) > 52:
         title = title[:52] + '...'
     if len(repo) > 27:
         repo = repo[:24] + '...'
-    print(f'| {title:<55} | {repo:<27} | {react_count:>8} | {comments:>8} | {created:<8} |')
+    print(f'| {title:<55} | {repo:<27} | {comments:>8} | {created:<10} |')
     print(f'|   {url}')
+    if labels:
+        print(f'|   Labels: {labels}')
 " 2>/dev/null || echo "| (failed to parse results)"
 
   print_footer
@@ -165,28 +161,23 @@ for strat in "${strategies_to_run[@]}"; do
   case "$strat" in
     reactions)
       run_search "Most Reacted (high community demand)" \
-        "$BASE_QUALIFIERS" \
-        "reactions"
+        --sort=reactions --order=desc
       ;;
     comments)
       run_search "Most Commented (active discussion)" \
-        "$BASE_QUALIFIERS" \
-        "comments"
+        --sort=comments --order=desc
       ;;
     help-wanted)
       run_search "Help Wanted (maintainer-approved)" \
-        "$BASE_QUALIFIERS label:help-wanted" \
-        "reactions"
+        --label="help wanted" --sort=reactions --order=desc
       ;;
     good-first-issue)
       run_search "Good First Issue (onboarding-friendly)" \
-        "$BASE_QUALIFIERS label:good-first-issue" \
-        "reactions"
+        --label="good first issue" --sort=reactions --order=desc
       ;;
     bugs)
       run_search "Bugs (high-visibility fixes)" \
-        "$BASE_QUALIFIERS label:bug" \
-        "reactions"
+        --label=bug --sort=reactions --order=desc
       ;;
     *)
       die "Unknown strategy: $strat (valid: reactions, comments, help-wanted, good-first-issue, bugs)"

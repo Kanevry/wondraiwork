@@ -24,6 +24,7 @@ Thumbs.db
 .claude/
 CLAUDE.md
 .gitignore.internal
+.npmrc
 
 # Build artifacts
 dist/
