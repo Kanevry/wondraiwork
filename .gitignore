@@ -26,5 +26,8 @@ CLAUDE.md
 .gitignore.internal
 .npmrc
 
+# Design files (Pencil)
+*.pen
+
 # Build artifacts
 dist/
