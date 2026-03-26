@@ -16,7 +16,10 @@ Evaluation (human reviews, Go/No-Go)
     ↓
 Implementation (clone, fix, test)
     ↓
-PR Submitted upstream
+Verification (Phase 04b — prove it works)
+    [kill criteria check, visual validation, decision log]
+    ↓ (GO)                    ↓ (STOP)
+PR Submitted upstream         [label: blocked or closed]
     [label: submitted, comment with PR link]
     ↓
 PR Merged (or iterated)
@@ -96,6 +99,24 @@ cron → wondraiwork.target.discovered → WondrAIWorkHandler
 - Clank knows about WondrAIWork targets via workspace skill
 - Can answer: "What are our current targets?" "What's the status of #7?"
 - Semi-autonomous: discovers and proposes, human decides and acts
+
+## Issue Comment Standards
+
+Every significant event must be documented as a comment on the GitLab tracking issue. This creates a
+chronological narrative that complements the structured target file.
+
+| Event                       | Required Comment Content                                                                   |
+| --------------------------- | ------------------------------------------------------------------------------------------ |
+| Phase transition            | "Phase N -> M. Reason: [why]."                                                             |
+| Decision made               | "Decision: [what]. Rationale: [why]. Alternatives considered: [list]."                     |
+| Blocker encountered         | "Blocker: [what]. Impact: [on approach]. Resolution plan: [how]."                          |
+| Blocker resolved            | "Blocker resolved: [what]. Resolution: [how]. Time impact: [hours]."                       |
+| Feasibility change          | "Feasibility: [old] -> [new]. Reason: [what changed]. Kill criteria: [status]."            |
+| Pre-submission verification | "Phase 04b complete. Result: [GO/STOP]. Evidence: [summary]. Kill criteria: [none/which]." |
+| Kill criteria triggered     | "Kill criterion [KN/SN] triggered: [evidence]. Action: [stop/reassess/pivot]."             |
+
+The goal is that someone reading only the GitLab issue comments can reconstruct the full history of
+the contribution without opening the target file.
 
 ## Session Handoff
 

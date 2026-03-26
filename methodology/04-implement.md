@@ -275,4 +275,4 @@ for the final history -- but it still helps reviewers understand your thought pr
 - At least one test covering the new/changed behavior
 - Clean, focused commits following the repo's conventions
 
-Proceed to [Phase 05: Submit](./05-submit.md).
+Proceed to [Phase 04b: Verify](./04b-verify.md).

@@ -2,6 +2,17 @@
 
 Create a PR that respects the maintainer's time and makes the review process as smooth as possible.
 
+## Pre-Submission Gate
+
+Before writing the PR, confirm that [Phase 04b: Verify](./04b-verify.md) is complete:
+
+- [ ] All five verification checks passed
+- [ ] No kill criteria are active
+- [ ] Target file Verification Evidence section is filled out
+- [ ] Decision log is current
+
+If Phase 04b is not complete, STOP and go back. Do not proceed to submission.
+
 ## PR Title
 
 The title is the first (and sometimes only) thing a maintainer reads in their notification feed.

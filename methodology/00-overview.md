@@ -1,10 +1,10 @@
 # WondrAIWork Methodology: Overview
 
-A systematic 6-phase process for making meaningful open-source contributions. Each phase has a clear
+A systematic 7-phase process for making meaningful open-source contributions. Each phase has a clear
 purpose, defined inputs/outputs, and specific tools. AI assists throughout, but the human leads
 every decision.
 
-## The 6 Phases
+## The 7 Phases
 
 | Phase | Name                             | Purpose                                            | Time       |
 | ----- | -------------------------------- | -------------------------------------------------- | ---------- |
@@ -12,6 +12,7 @@ every decision.
 | 02    | [Evaluate](./02-evaluate.md)     | Assess repo health and issue quality               | 15-30 min  |
 | 03    | [Understand](./03-understand.md) | Map the codebase systematically                    | 1-3 hours  |
 | 04    | [Implement](./04-implement.md)   | Build the fix with quality gates                   | 2-8 hours  |
+| 04b   | [Verify](./04b-verify.md)        | Prove the fix actually works before submitting     | 15-60 min  |
 | 05    | [Submit](./05-submit.md)         | Create a professional PR                           | 30-60 min  |
 | 06    | [Respond](./06-respond.md)       | Handle review feedback and iterate                 | Ongoing    |
 | 07    | [Tracking](./07-tracking.md)     | Issue lifecycle, Clank automation, session handoff | Continuous |
@@ -51,18 +52,29 @@ every decision.
                            No          Yes
                            |            |
                            v            v
-                     [Fix + retry] +-------------+
-                                   | 05 SUBMIT   |
-                                   | Create PR   |
-                                   +------+------+
+                     [Fix + retry] +--------------+
+                                   | 04b VERIFY   |
+                                   | Prove it     |
+                                   | works        |
+                                   +------+-------+
                                           |
-                                          v
-                                   +-------------+
-                                   | 06 RESPOND  |
-                                   | Review cycle|
-                                   +------+------+
-                                          |
-                                     Merged / Closed
+                                    Kill criteria?
+                                    /           \
+                                  Yes            No
+                                  |               |
+                                  v               v
+                           [Stop/Reassess]  +-------------+
+                                            | 05 SUBMIT   |
+                                            | Create PR   |
+                                            +------+------+
+                                                   |
+                                                   v
+                                            +-------------+
+                                            | 06 RESPOND  |
+                                            | Review cycle|
+                                            +------+------+
+                                                   |
+                                              Merged / Closed
 ```
 
 ## How AI Fits In
@@ -75,6 +87,7 @@ AI (Claude Code or similar) is a force multiplier, not the driver.
 | Evaluate   | Analyze repo health metrics                 | Make the go/no-go call                            |
 | Understand | Rapid codebase navigation, explain patterns | Build mental model, verify understanding          |
 | Implement  | Draft code, run tests, catch regressions    | Design approach, review every line, own quality   |
+| Verify     | Run checklists, compare screenshots, check  | Make the honest assessment, invoke kill criteria  |
 | Submit     | Draft PR description, check formatting      | Write the narrative, ensure accuracy              |
 | Respond    | Suggest response wording, implement fixes   | Communicate with maintainers, make judgment calls |
 
@@ -94,8 +107,10 @@ Ready-to-use templates for each phase:
 
 - [Issue Evaluation Template](./templates/issue-evaluation.md) -- Structured scoring for phases
   01-02
-- [PR Checklist](./templates/pr-checklist.md) -- Pre-submission verification for phase 05
+- [Target File Template](./templates/target-file.md) -- Living document for tracking a contribution
 - [Codebase Map](./templates/codebase-map.md) -- Documentation template for phase 03
+- [Verification Checklist](./templates/verification-checklist.md) -- Phase 04b verification gate
+- [PR Checklist](./templates/pr-checklist.md) -- Pre-submission verification for phase 05
 
 ## Getting Started
 
