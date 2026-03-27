@@ -68,11 +68,19 @@ info "Fetching repo metadata..."
 
 REPO_DATA=$(gh api "repos/${REPO}" 2>/dev/null) || warn "Could not fetch repo metadata"
 
+echo ""
+echo "════════════════════════════════════════════════════════════"
+echo "  TARGET SETUP REPORT"
+echo "════════════════════════════════════════════════════════════"
+echo ""
+
 if [[ -n "${REPO_DATA:-}" ]]; then
   LANGUAGE=$(echo "$REPO_DATA" | python3 -c "import sys,json; print(json.load(sys.stdin).get('language','unknown'))" 2>/dev/null || echo "unknown")
   DEFAULT_BRANCH=$(echo "$REPO_DATA" | python3 -c "import sys,json; print(json.load(sys.stdin).get('default_branch','main'))" 2>/dev/null || echo "main")
   STARS=$(echo "$REPO_DATA" | python3 -c "import sys,json; print(json.load(sys.stdin).get('stargazers_count',0))" 2>/dev/null || echo "?")
 
+  echo "── Repository: ${REPO} ──────────────────────────────────────"
+  echo ""
   echo "  Language:       ${LANGUAGE}"
   echo "  Default branch: ${DEFAULT_BRANCH}"
   echo "  Stars:          ${STARS}"
@@ -89,9 +97,7 @@ for candidate in CONTRIBUTING.md contributing.md CONTRIBUTING.rst docs/CONTRIBUT
 done
 
 if [[ -n "$CONTRIBUTING_FILE" ]]; then
-  echo "============================================================"
-  echo "  CONTRIBUTING GUIDELINES (${CONTRIBUTING_FILE##*/})"
-  echo "============================================================"
+  echo "── Contributing Guidelines (${CONTRIBUTING_FILE##*/}) ──────────────────────"
   echo ""
   # Show first 80 lines to keep output manageable
   head -n 80 "$CONTRIBUTING_FILE"
@@ -116,7 +122,7 @@ CI_RUNS=$(gh api "repos/${REPO}/actions/runs?per_page=5&branch=${DEFAULT_BRANCH:
 
 if [[ -n "$CI_RUNS" ]]; then
   echo ""
-  echo "-- Recent CI Runs (${DEFAULT_BRANCH:-main}) --"
+  echo "── Recent CI Runs (${DEFAULT_BRANCH:-main}) ────────────────────────────────"
   echo ""
   printf "  %-15s %-40s %s\n" "STATUS" "WORKFLOW" "DATE"
   printf "  %-15s %-40s %s\n" "------" "--------" "----"
@@ -151,6 +157,8 @@ declare -a DETECTED=()
 [[ -f "${TARGET_DIR}/docker-compose.yml" || -f "${TARGET_DIR}/docker-compose.yaml" ]] && DETECTED+=("docker-compose")
 [[ -f "${TARGET_DIR}/Dockerfile" ]]           && DETECTED+=("docker")
 
+echo "── Build Systems ───────────────────────────────────────────"
+echo ""
 if [[ ${#DETECTED[@]} -gt 0 ]]; then
   echo "  Build systems: ${DETECTED[*]}"
 else
@@ -222,17 +230,18 @@ MAPEOF
 fi
 
 echo ""
-echo "============================================================"
+echo "════════════════════════════════════════════════════════════"
 echo "  SETUP COMPLETE"
-echo "============================================================"
+echo "════════════════════════════════════════════════════════════"
 echo ""
 echo "  Repo cloned to: ${TARGET_DIR}"
 echo "  Codebase map:   ${MAP_FILE}"
 echo ""
-echo "  Next steps:"
-echo "    1. cd ${TARGET_DIR}"
-echo "    2. Read the README and CONTRIBUTING guide"
-echo "    3. Install dependencies and run tests"
-echo "    4. Fill in CODEBASE-MAP.md as you explore"
-echo "    5. Create a feature branch for your contribution"
+echo "── Next Steps ──────────────────────────────────────────────"
+echo ""
+echo "  1. cd ${TARGET_DIR}"
+echo "  2. Read the README and CONTRIBUTING guide"
+echo "  3. Install dependencies and run tests"
+echo "  4. Fill in CODEBASE-MAP.md as you explore"
+echo "  5. Create a feature branch for your contribution"
 echo ""

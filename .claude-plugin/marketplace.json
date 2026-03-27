@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "wondraiwork",
-  "description": "Systematic AI-assisted open source contribution toolkit",
+  "description": "Systematic AI-assisted open source contribution toolkit with 6 skills covering all 7 phases",
   "owner": {
     "name": "Bernhard Goetzendorfer",
     "email": "office@gotzendorfer.at"
@@ -10,8 +10,8 @@
     {
       "name": "wondraiwork",
       "source": ".",
-      "description": "Discover issues, evaluate repos, verify fixes, submit PRs — a systematic 7-phase methodology for AI-assisted OSS contributions",
-      "version": "0.3.0",
+      "description": "6 skills covering all 7 phases — discover, evaluate, brief, setup, verify, contribute — a systematic methodology for AI-assisted OSS contributions",
+      "version": "0.4.0",
       "category": "productivity"
     }
   ]

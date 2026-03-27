@@ -179,48 +179,47 @@ else:
             title = title[:47] + '...'
         print(f\"    {title}\")
     avg = round(total_days / len(merged), 1)
-    print(f'  ---')
     print(f'  Average merge time: {avg} days ({len(merged)} PRs sampled)')
 " 2>/dev/null || echo "  (failed to analyze merge speed)")
 
-# ── Produce report ───────────────────────────────────────────────────
+# ── Produce report ───────════════════════════════════════════════════
 echo ""
-echo "============================================================"
+echo "════════════════════════════════════════════════════════════"
 echo "  CONTRIBUTION EVALUATION REPORT"
-echo "============================================================"
+echo "════════════════════════════════════════════════════════════"
 echo ""
-echo "-- Repository: ${REPO} --"
+echo "── Repository: ${REPO} ──────────────────────────────────────"
 echo ""
-echo "  Description:    ${DESCRIPTION}"
-echo "  Language:        ${LANGUAGE}"
-echo "  License:         ${LICENSE}"
-echo "  Stars:           ${STARS}"
-echo "  Forks:           ${FORKS}"
-echo "  Open issues:     ${OPEN_ISSUES}"
-echo "  Default branch:  ${DEFAULT_BRANCH}"
-echo "  Last push:       ${PUSHED_AT}"
-echo "  Recent activity: ${RECENT_COMMITS_LABEL}"
-echo "  Archived:        ${ARCHIVED}"
-echo "  CONTRIBUTING.md: ${HAS_CONTRIBUTING}"
-echo "  PR target branch: ${PR_TARGET_BRANCH}"
-echo "  CLA required:     ${HAS_CLA}"
+echo "  Description:      ${DESCRIPTION}"
+echo "  Language:          ${LANGUAGE}"
+echo "  License:           ${LICENSE}"
+echo "  Stars:             ${STARS}"
+echo "  Forks:             ${FORKS}"
+echo "  Open issues:       ${OPEN_ISSUES}"
+echo "  Default branch:    ${DEFAULT_BRANCH}"
+echo "  Last push:         ${PUSHED_AT}"
+echo "  Recent activity:   ${RECENT_COMMITS_LABEL}"
+echo "  Archived:          ${ARCHIVED}"
+echo "  CONTRIBUTING.md:   ${HAS_CONTRIBUTING}"
+echo "  PR target branch:  ${PR_TARGET_BRANCH}"
+echo "  CLA required:      ${HAS_CLA}"
 echo ""
-echo "-- Issue #${ISSUE_NUM} --"
+echo "── Issue #${ISSUE_NUM} ──────────────────────────────────────────────"
 echo ""
-echo "  Title:           ${ISSUE_TITLE}"
-echo "  State:           ${ISSUE_STATE}"
-echo "  Author:          @${ISSUE_AUTHOR}"
-echo "  Labels:          ${ISSUE_LABELS}"
-echo "  Assignee:        ${ISSUE_ASSIGNEE}"
-echo "  Reactions:       ${ISSUE_REACTIONS}"
-echo "  Comments:        ${ISSUE_COMMENTS}"
-echo "  Created:         ${ISSUE_CREATED}"
-echo "  Last updated:    ${ISSUE_UPDATED}"
-echo "  Body length:     ${ISSUE_BODY_LEN} chars"
+echo "  Title:             ${ISSUE_TITLE}"
+echo "  State:             ${ISSUE_STATE}"
+echo "  Author:            @${ISSUE_AUTHOR}"
+echo "  Labels:            ${ISSUE_LABELS}"
+echo "  Assignee:          ${ISSUE_ASSIGNEE}"
+echo "  Reactions:         ${ISSUE_REACTIONS}"
+echo "  Comments:          ${ISSUE_COMMENTS}"
+echo "  Created:           ${ISSUE_CREATED}"
+echo "  Last updated:      ${ISSUE_UPDATED}"
+echo "  Body length:       ${ISSUE_BODY_LEN} chars"
 echo ""
 
 # ── Risk assessment ──────────────────────────────────────────────────
-echo "-- Risk Assessment --"
+echo "── Risk Assessment ───────────────────────────────────────────"
 echo ""
 
 RISKS=0
@@ -265,11 +264,11 @@ if [[ "$RISKS" -eq 0 ]]; then
 fi
 
 echo ""
-echo "-- Community PR Merge Speed --"
+echo "── Community PR Merge Speed ────────────────────────────────"
 echo ""
 echo "$MERGE_SPEED_REPORT"
 echo ""
-echo "-- Competing PRs --"
+echo "── Competing PRs ───────────────────────────────────────────"
 echo ""
 if [[ "$LINKED_PRS" == "?" ]]; then
   echo "  Could not determine competing PRs."
@@ -280,9 +279,9 @@ else
 fi
 
 echo ""
-echo "============================================================"
+echo "════════════════════════════════════════════════════════════"
 echo "  VERDICT"
-echo "============================================================"
+echo "════════════════════════════════════════════════════════════"
 echo ""
 
 if [[ "$ARCHIVED" == "true" ]]; then

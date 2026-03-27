@@ -73,16 +73,23 @@ fi
 SEARCH_QUALIFIERS="stars:>=${MIN_STARS} created:>=${SINCE_DATE}"
 
 # ── Formatting ───────────────────────────────────────────────────────
-SEPARATOR="+---------------------------------------------------------+-----------------------------+----------+------------+"
-HEADER=$(printf "| %-55s | %-27s | %-8s | %-10s |" "ISSUE" "REPO" "COMMENTS" "CREATED")
+MAIN_BORDER="════════════════════════════════════════════════════════════"
+SECTION_SUFFIX="──────────────────────────────────────────────────────"
 
 print_header() {
   local strategy_name="$1"
+  local label="── ${strategy_name} "
+  local label_len=${#label}
+  local suffix_len=$((60 - label_len))
+  if [[ $suffix_len -lt 2 ]]; then
+    suffix_len=2
+  fi
+  local suffix
+  suffix=$(printf '%0.s─' $(seq 1 "$suffix_len"))
   echo ""
-  echo "=== Strategy: ${strategy_name} ==="
-  echo "$SEPARATOR"
-  echo "$HEADER"
-  echo "$SEPARATOR"
+  echo "  ${label}${suffix}"
+  echo ""
+  printf "  | %-55s | %-27s | %-8s | %-10s |\n" "ISSUE" "REPO" "COMMENTS" "CREATED"
 }
 
 print_row() {
@@ -91,12 +98,12 @@ print_row() {
   if [[ ${#title} -gt 52 ]]; then
     title="${title:0:52}..."
   fi
-  printf "| %-55s | %-27s | %8s | %8s | %-8s |\n" "$title" "$repo" "$reactions" "$comments" "$created"
-  printf "|   %s\n" "$url"
+  printf "  | %-55s | %-27s | %8s | %8s | %-8s |\n" "$title" "$repo" "$reactions" "$comments" "$created"
+  printf "  |   %s\n" "$url"
 }
 
 print_footer() {
-  echo "$SEPARATOR"
+  echo ""
 }
 
 # ── Search execution ─────────────────────────────────────────────────
@@ -110,7 +117,7 @@ run_search() {
   local results
   # shellcheck disable=SC2086
   results=$(gh search issues $SEARCH_QUALIFIERS "${BASE_FLAGS[@]}" "${extra_flags[@]}" 2>/dev/null) || {
-    echo "| (search failed or returned no results)"
+    echo "  | (search failed or returned no results)"
     print_footer
     return
   }
@@ -119,7 +126,7 @@ run_search() {
   count=$(echo "$results" | python3 -c "import sys,json; print(len(json.load(sys.stdin)))" 2>/dev/null || echo "0")
 
   if [[ "$count" == "0" || -z "$results" || "$results" == "[]" ]]; then
-    echo "| (no results)"
+    echo "  | (no results)"
     print_footer
     return
   fi
@@ -139,11 +146,11 @@ for item in data:
         title = title[:52] + '...'
     if len(repo) > 27:
         repo = repo[:24] + '...'
-    print(f'| {title:<55} | {repo:<27} | {comments:>8} | {created:<10} |')
-    print(f'|   {url}')
+    print(f'  | {title:<55} | {repo:<27} | {comments:>8} | {created:<10} |')
+    print(f'  |   {url}')
     if labels:
-        print(f'|   Labels: {labels}')
-" 2>/dev/null || echo "| (failed to parse results)"
+        print(f'  |   Labels: {labels}')
+" 2>/dev/null || echo "  | (failed to parse results)"
 
   print_footer
 }
@@ -154,9 +161,18 @@ if [[ -n "$STRATEGY" ]]; then
   strategies_to_run=("$STRATEGY")
 fi
 
-echo "WondrAIWork Issue Discovery"
-echo "Config: stars>=${MIN_STARS}, max_age=${MAX_AGE_DAYS}d, lang=${LANGUAGE:-any}, label=${EXTRA_LABEL:-any}, limit=${LIMIT}/strategy"
-echo "Date filter: created >= ${SINCE_DATE}"
+echo ""
+echo "  ${MAIN_BORDER}"
+echo "    ISSUE DISCOVERY REPORT"
+echo "  ${MAIN_BORDER}"
+echo ""
+echo "  ── Configuration ${SECTION_SUFFIX:0:40}"
+echo ""
+echo "  Stars:      >= ${MIN_STARS}"
+echo "  Max age:    ${MAX_AGE_DAYS}d (created >= ${SINCE_DATE})"
+echo "  Language:   ${LANGUAGE:-any}"
+echo "  Label:      ${EXTRA_LABEL:-any}"
+echo "  Limit:      ${LIMIT}/strategy"
 
 for strat in "${strategies_to_run[@]}"; do
   case "$strat" in
@@ -187,4 +203,7 @@ for strat in "${strategies_to_run[@]}"; do
 done
 
 echo ""
-echo "Done. Use 'bash scripts/evaluate.sh <owner/repo> <issue-number>' to evaluate a candidate."
+echo "  ── Next Steps ${SECTION_SUFFIX:0:43}"
+echo ""
+echo "  Run 'bash scripts/evaluate.sh <owner/repo> <issue-number>' to evaluate a candidate."
+echo ""

@@ -1,7 +1,7 @@
 {
   "name": "wondraiwork",
-  "version": "0.3.0",
-  "description": "Systematic AI-assisted open source contribution toolkit. Discover issues, evaluate repos, verify fixes, submit PRs.",
+  "version": "0.4.0",
+  "description": "Systematic AI-assisted open source contribution toolkit with 6 skills covering all 7 phases: discover, evaluate, brief, setup, verify, and contribute.",
   "author": {
     "name": "Bernhard Goetzendorfer",
     "email": "office@gotzendorfer.at"

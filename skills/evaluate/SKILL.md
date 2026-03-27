@@ -1,39 +1,54 @@
 ---
 name: evaluate
 description:
-  Deep-evaluate a GitHub repo and issue for contribution viability. Checks repo health, maintainer
-  activity, competing PRs, merge speed, and produces a GO/NO-GO recommendation with scoring.
+  This skill should be used when the user asks to "evaluate an issue", "check if an issue is
+  viable", "assess a repository", or mentions Phase 02.
 argument-hint: "<owner/repo> <issue-number>"
 ---
 
 # /evaluate — Deep Issue Evaluation
 
-You are running the WondrAIWork evaluation phase (Phase 02). Your job is to deeply assess whether a
-specific issue is worth contributing to.
+Evaluate whether a specific GitHub issue is worth contributing to. This is Phase 02 of the
+WondrAIWork methodology. The evaluation produces a GO / CONDITIONAL GO / NO-GO recommendation based
+on repo health, maintainer activity, competition, AI stance, and a weighted score.
 
 ## Step 1: Parse Arguments
 
-The user should provide `<owner/repo> <issue-number>`. If missing, ask for them.
+Extract `<owner/repo>` and `<issue-number>` from `$ARGUMENTS`. If either is missing, prompt the
+user.
 
-Example: `/evaluate vercel/next.js 42846`
+Example input: `/evaluate vercel/next.js 42846`
 
-## Step 2: Run Evaluation Script
+## Step 2: Check Blocklist
 
-Execute the evaluation script:
+Before any evaluation work, verify the target repo is not blocked.
+
+```bash
+cat ${CLAUDE_PLUGIN_ROOT}/targets/BLOCKLIST.md
+```
+
+If the repo appears on the blocklist, stop immediately with a **HARD NO-GO** and suggest `/discover`
+to find an alternative target.
+
+## Step 3: Run Evaluation Script
+
+Execute the automated evaluation script:
 
 ```bash
 bash ${CLAUDE_PLUGIN_ROOT}/scripts/evaluate.sh $ARGUMENTS
 ```
 
-This produces a structured report with:
+This produces a structured report covering:
 
-- Repository health metrics (stars, forks, language, license, activity)
+- Repository health metrics (stars, forks, language, license, recent activity)
 - Issue details (title, state, labels, assignee, reactions, comments)
 - Risk assessment (competing PRs, CLA requirements, archived status)
 - Community PR merge speed (average days to merge for external contributors)
-- Verdict (VIABLE / CAUTION / SKIP)
+- Script verdict (VIABLE / CAUTION / SKIP)
 
-## Step 3: Read Evaluation Methodology
+Capture and review the full output before proceeding.
+
+## Step 4: Read and Apply the Evaluation Methodology
 
 Read the full evaluation framework:
 
@@ -41,96 +56,93 @@ Read the full evaluation framework:
 cat ${CLAUDE_PLUGIN_ROOT}/methodology/02-evaluate.md
 ```
 
-## Step 4: Apply Go/No-Go Framework
+Apply every section of the methodology document systematically:
 
-Score each criterion as Pass/Fail:
+- **Repo health signals** -- maintainer activity, CI status, contributor guidelines
+- **AI contribution stance** -- run all checks from the methodology's "Check Sequence" section. This
+  is a hard gate: if the repo bans AI contributions, the evaluation ends as a HARD NO-GO regardless
+  of all other signals.
+- **Issue quality signals** -- specification clarity, acceptance criteria, reproducibility
+- **Full issue thread analysis** -- read EVERY comment in the issue thread. Extract maintainer
+  requirements, warnings, technical constraints, prior attempt analysis, and sentiment signals.
+  Document all findings.
+- **Competition check** -- search for existing PRs, assignees, and "I'll work on this" claims.
+  Perform rejection triage on any closed/rejected PRs for this issue.
 
-| #   | Criterion                                 | Check                                             |
-| --- | ----------------------------------------- | ------------------------------------------------- |
-| 1   | Repo merged external PRs in last 3 months | From merge speed report                           |
-| 2   | Issue acknowledged by maintainer          | Check issue comments                              |
-| 3   | No competing active PR                    | From competing PRs section                        |
-| 4   | CI is green on default branch             | `gh run list --repo REPO --branch main --limit 3` |
-| 5   | Scope is estimable (hours, not weeks)     | Your judgment based on issue                      |
-| 6   | Required domain knowledge is available    | Honest assessment                                 |
-| 7   | No disqualifying red flags                | CLA issues, archived, etc.                        |
+## Step 5: Apply Go/No-Go Framework
 
-**Decision rules:**
+Apply the Go/No-Go decision framework from the methodology document. Score each of the 8 criteria as
+Pass or Fail using evidence gathered in the previous steps.
 
-- All 7 pass → **Strong GO**
-- 1-2 fail → **Conditional GO** (note risks)
-- 3+ fail → **NO-GO** (return to discovery)
+Apply the decision rules from the methodology. The framework defines clear thresholds for GO,
+CONDITIONAL GO, and NO-GO based on how many criteria pass and which specific criteria fail.
 
-## Step 5: Calculate Weighted Score
+## Step 6: Calculate Weighted Score
 
-Apply the scoring matrix from Phase 01:
+Apply the weighted scoring matrix from the methodology read in Step 4. Score each of the three
+dimensions 0-10 and compute the weighted total as a score out of 5.0.
 
-- **Impact** (40%): Based on reactions, comments, issue severity
-- **Feasibility** (35%): Based on scope, competition, technical complexity
-- **Visibility** (25%): Based on repo stars, org reputation
-
-**Note:** This is the Phase 02 preliminary score. It MUST be re-evaluated after Phase 03
-(Understand) when the actual codebase complexity is known.
-
-## Step 6: Check for AI Contribution Policy
-
-Check if the target repo has a policy on AI-assisted contributions:
-
-```bash
-gh api "repos/$1/contents/CONTRIBUTING.md" --jq '.content' 2>/dev/null | base64 -d | grep -i "ai\|copilot\|llm\|gpt\|claude" || echo "No AI policy found"
-```
-
-If they restrict AI contributions, flag this immediately.
+Mark this score as **preliminary**. It must be re-evaluated after Phase 03 (Understand) when actual
+codebase complexity is known.
 
 ## Step 7: Present Evaluation Summary
 
-Present a structured summary:
+Present the results using this example format (adapt as needed):
 
 ```
 === EVALUATION SUMMARY ===
 
-Repo:     owner/repo (★ stars)
-Issue:    #number — title
+Repo:     owner/repo (stars)
+Issue:    #number -- title
 Score:    X.X/5.0 (Impact: X | Feasibility: X | Visibility: X)
 Verdict:  GO / CONDITIONAL GO / NO-GO
 
-Go/No-Go Checklist:
-[x] External PRs merged recently
-[x] Issue acknowledged by maintainer
-[ ] No competing PRs  ← RISK: 1 open PR found
-...
+Go/No-Go Checklist (8 criteria from methodology):
+[x] 1. External PRs merged recently
+[x] 2. Issue acknowledged by maintainer
+[ ] 3. No competing PRs  <-- RISK
+[x] 4. CI green on default branch
+[x] 5. Can build locally
+[x] 6. Scope estimable
+[x] 7. Required domain knowledge available
+[x] 8. Repo does not ban AI contributions
 
-Key Risks:
-- ...
-
-Recommendation:
-- ...
+AI Stance: No policy / Explicit welcome / Explicit ban / Implicit hostility
+Key Risks: ...
+Issue Thread Intelligence: ...
 ```
 
 ## Step 8: Suggest Next Steps
 
 Based on the verdict:
 
-**If GO:**
+**If GO or CONDITIONAL GO:**
 
-> This issue looks viable. The next step is the **Owner Briefing** (Phase 02b). The owner briefing
-> presents the evaluation to the human owner for approval before any implementation begins. Use
-> `/briefing` to generate the briefing.
-
-**If CONDITIONAL GO:**
-
-> This issue has risks: [list risks]. The owner should decide whether to proceed. Use `/briefing` to
-> present the evaluation with these risks highlighted.
+> Recommend proceeding to the Owner Briefing (Phase 02b). The owner must review and approve the
+> evaluation before any implementation begins. Suggest:
+>
+> `/briefing <owner/repo> <issue-number>`
+>
+> For CONDITIONAL GO, highlight the specific risks the owner needs to accept.
 
 **If NO-GO:**
 
-> This issue is not recommended. Reasons: [list]. Use `/discover` to find alternative targets.
+> State the reasons clearly. Suggest returning to discovery:
+>
+> `/discover`
 
 ## Important Notes
 
-- **Competition check timing:** Always re-check for competing PRs right before Phase 04
-  (Implementation), not just here
-- **Feasibility re-scoring:** The Phase 02 score is preliminary. After Phase 03 (Understand),
+- **Blocklist is absolute.** Repos on `targets/BLOCKLIST.md` are hard no-go. Do not evaluate
+  further.
+- **AI stance is a hard gate.** If the repo bans AI contributions, no amount of code quality changes
+  the outcome. Stop evaluation and return NO-GO.
+- **Competition check timing.** Always re-check for competing PRs again before Phase 04
+  (Implementation), not just here. Situations change.
+- **Feasibility re-scoring.** The Phase 02 score is preliminary. After Phase 03 (Understand),
   re-score feasibility based on actual codebase complexity. If it drops below 4/10, abandon the
   target.
-- **Owner Briefing is mandatory:** Never proceed to Phase 03 without owner approval (Phase 02b)
+- **Owner Briefing is mandatory.** Never proceed to Phase 03 without owner approval via Phase 02b.
+  The `/briefing` skill generates the briefing for owner review.
+- **Full thread analysis is mandatory.** Skimming the issue description is not sufficient. Every
+  maintainer comment may contain implicit acceptance criteria or rejection signals.
