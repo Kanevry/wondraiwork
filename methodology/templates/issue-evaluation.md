@@ -86,19 +86,33 @@
 | Issue assigned to someone    | [ ] No / [ ] Yes (inactive) / [ ] Yes (active) |       |
 | "I'll work on this" comments | [ ] None / [ ] Stale / [ ] Recent              |       |
 
+## AI Contribution Stance
+
+| Check                                                  | Result                                             | Notes |
+| ------------------------------------------------------ | -------------------------------------------------- | ----- |
+| CONTRIBUTING.md mentions AI                            | [ ] Ban / [ ] Restrict / [ ] Welcome / [ ] Silent  |       |
+| AGENTS.md exists                                       | [ ] Yes / [ ] No                                   |       |
+| On melissawm/open-source-ai-contribution-policies list | [ ] Banned / [ ] Restricted / [ ] Not listed       |       |
+| Past AI-related PR rejections                          | [ ] Yes / [ ] No                                   |       |
+| Maintainer comments about AI                           | [ ] Hostile / [ ] Neutral / [ ] Welcome / [ ] None |       |
+
+**AI Stance Classification:** [ ] Explicit ban / [ ] Implicit hostility / [ ] No policy / [ ]
+Welcome
+
 ## Go / No-Go
 
-| #   | Criterion                        | Pass |
-| --- | -------------------------------- | ---- |
-| 1   | Repo merges external PRs         | [ ]  |
-| 2   | Issue acknowledged by maintainer | [ ]  |
-| 3   | No competing active PR           | [ ]  |
-| 4   | CI is green on default branch    | [ ]  |
-| 5   | Can build the project locally    | [ ]  |
-| 6   | Scope is estimable in hours      | [ ]  |
-| 7   | Domain knowledge sufficient      | [ ]  |
+| #   | Criterion                                   | Pass |
+| --- | ------------------------------------------- | ---- |
+| 1   | Repo merges external PRs                    | [ ]  |
+| 2   | Issue acknowledged by maintainer            | [ ]  |
+| 3   | No competing active PR                      | [ ]  |
+| 4   | CI is green on default branch               | [ ]  |
+| 5   | Can build the project locally               | [ ]  |
+| 6   | Scope is estimable in hours                 | [ ]  |
+| 7   | Domain knowledge sufficient                 | [ ]  |
+| 8   | Repo does not ban AI-assisted contributions | [ ]  |
 
-**Decision:** [ ] GO / [ ] NO-GO
+**Decision:** [ ] GO / [ ] NO-GO (Note: #8 fail = hard no-go, no exceptions)
 
 **Reasoning:**
 

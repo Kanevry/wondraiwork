@@ -159,9 +159,49 @@ source/github-helpers/selectors.ts  — Shared Nav Selektoren
 
 ---
 
-## Next Steps
+## Session 3: Rejection and Post-Mortem
 
-- [ ] Warten auf Maintainer-Review
-- [ ] Requested Changes als neue Commits pushen (nie force-push!)
-- [ ] Bei Merge: Target-Status auf "Merged" setzen, Journal finalisieren
-- [ ] Bei Ablehnung: Gruende analysieren, ggf. Ansatz ueberdenken
+### Outcome
+
+PR #9128 was closed on 2026-03-27. Account (Kanevry) was blocked from refined-github/refined-github.
+
+### Maintainer Feedback
+
+1. **SunsetTechuila** (MEMBER) — Changes Requested (2026-03-27 02:54):
+   - Linked to issue comment from 2026-01-14: "Updating selectors isn't enough, we now have to
+     handle tabs hiding/showing on resize ourselves. And probably coordinate that between features."
+   - Second review: `clean-repo-tabs` should move items to the dropdown menu instead of hiding them,
+     per readme.md line 104.
+
+2. **SunsetTechuila** comment: "Mentally stuck in the past."
+
+3. PR title changed to: "[User was blocked for this AI PR]"
+
+### Root Causes Identified
+
+| Root Cause                       | What Happened                                  | What Should Have Happened       |
+| -------------------------------- | ---------------------------------------------- | ------------------------------- |
+| K2 hard kill ignored             | Feasibility at 3/10, K2 threshold is 4/10      | Submission blocked by hard kill |
+| AI policy not gated              | No check for AI stance in Go/No-Go             | AI stance check as criterion #8 |
+| Rejection reframed               | "Untested AI PRs not welcome" read as QA issue | Classified as POLICY rejection  |
+| Missed maintainer comment        | Jan 14 comment about resize not captured       | Full issue thread analysis      |
+| README spec not cross-checked    | "Moves to dropdown" implemented as "hide"      | Behavioral spec extraction      |
+| Second PR after policy rejection | Resubmitted despite AI rejection               | K7 hard kill would block        |
+
+### Methodology Improvements Triggered
+
+This rejection triggered a systematic review of the WondrAIWork methodology. Changes made:
+
+- Phase 02: AI Contribution Stance check (Go/No-Go #8), Full Issue Thread Analysis, Rejection Triage
+- Phase 03: Behavioral Specification Extraction
+- Phase 04b: Checks 1b/1c, K7/S6, enforcement note
+- All templates updated with new sections
+- targets/BLOCKLIST.md created
+- AI-ATTRIBUTION.md updated with disclosure rejection guidance
+
+### Final Assessment
+
+- **Total effort**: ~12 hours across 3 sessions
+- **Outcome**: Blocked. No merge, account blocked.
+- **Contribution to methodology**: Significant — 6 root causes identified, 13 files updated
+- **Status**: Closed. refined-github added to BLOCKLIST.md.

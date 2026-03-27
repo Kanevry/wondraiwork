@@ -130,6 +130,18 @@ If a target repository explicitly bans AI-assisted or AI-generated contributions
 policy completely. Do not submit AI-assisted work to repositories that prohibit it, regardless of
 how minor the assistance was. There are no exceptions.
 
+### When Disclosure Triggers Rejection
+
+If transparent disclosure leads to PR rejection in a repo without an explicit ban:
+
+1. The rejection is a data point, not a failure of the disclosure policy
+2. Update the AI stance classification for that repo in the target file
+3. Move on -- there are thousands of repos that welcome quality AI-assisted work
+4. Never conceal AI usage to avoid rejection. Quality + honesty is the only path.
+
+Concealing AI usage to increase merge probability is not an option. If a repo rejects AI-assisted
+work, the correct response is to find a different repo -- not to hide.
+
 ### When Policies Are Ambiguous
 
 If a repository's policy is unclear, err on the side of disclosure. Mention AI tool usage in the PR

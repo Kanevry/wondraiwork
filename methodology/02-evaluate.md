@@ -59,6 +59,61 @@ gh api "repos/$REPO/contents/.github/PULL_REQUEST_TEMPLATE.md" \
 Projects with clear contribution guidelines signal that they expect and welcome external PRs. No
 guidelines means higher risk of arbitrary review standards.
 
+## AI Contribution Stance
+
+Before proceeding, determine whether the target repo accepts AI-assisted contributions. This is a
+hard gate -- if the repo bans AI contributions, no amount of code quality will change the outcome.
+
+### Check Sequence (all mandatory)
+
+```bash
+REPO="owner/repo"
+
+# 1. Check CONTRIBUTING.md for AI/LLM mentions
+gh api "repos/$REPO/contents/CONTRIBUTING.md" --jq '.content' 2>/dev/null \
+  | base64 -d | grep -i "AI\|LLM\|GPT\|generated\|bot\|automated"
+
+# 2. Check for AGENTS.md (AI agent policy file, 60k+ repos use this)
+gh api "repos/$REPO/contents/AGENTS.md" --jq '.name' 2>/dev/null
+
+# 3. Check for AI_POLICY.md or similar
+for f in AI_POLICY.md .github/AI_POLICY.md; do
+  gh api "repos/$REPO/contents/$f" --jq '.name' 2>/dev/null && echo "Found: $f"
+done
+
+# 4. Search issues/PRs for AI-related rejections
+gh search issues --repo "$REPO" --state closed "AI OR GPT OR bot OR generated" --limit 10 \
+  --json title,url
+
+# 5. Search recent closed PRs for AI rejection patterns
+gh pr list --repo "$REPO" --state closed --limit 20 --json title,closedAt \
+  | jq '[.[] | select(.title | test("AI|bot|generated"; "i"))]'
+```
+
+Also check:
+
+- The community-maintained list:
+  [melissawm/open-source-ai-contribution-policies](https://github.com/melissawm/open-source-ai-contribution-policies)
+- Our own blocklist: `targets/BLOCKLIST.md`
+
+### Classification
+
+| Stance             | Evidence                                                                  | Action                         |
+| ------------------ | ------------------------------------------------------------------------- | ------------------------------ |
+| Explicit ban       | CONTRIBUTING.md says "no AI", on policy list, AGENTS.md restricts         | **HARD NO-GO**                 |
+| Implicit hostility | Past AI PRs rejected with policy language, maintainer comments against AI | **NO-GO**                      |
+| No policy          | No mention of AI anywhere                                                 | Proceed with full disclosure   |
+| Explicit welcome   | AGENTS.md invites agents, policy accepts AI with conditions               | Proceed, follow their protocol |
+
+### Rejection Language Parsing
+
+When reading past rejections, distinguish **policy** from **technical** language:
+
+- **Policy signals**: "not welcome", "spam", "please don't", "we don't accept AI", "no bots"
+- **Technical signals**: "not working", "wrong approach", "doesn't match style", "tests fail"
+
+A sentence like "Untested AI PRs are not welcome" contains BOTH -- treat it as policy-primary.
+
 ## Issue Quality Signals
 
 ### Specification Clarity
@@ -80,6 +135,29 @@ Look for explicit or implicit criteria:
 
 Issues that have been triaged and labeled by a maintainer are significantly safer targets than
 untriaged community reports.
+
+### Full Issue Thread Analysis
+
+Read EVERY comment in the issue thread. Not just the description -- every comment, including
+collapsed, hidden, or minimized ones. Extract and document:
+
+1. **Maintainer requirements**: Statements about how the fix should work, architectural constraints,
+   expected behavior
+2. **Maintainer warnings**: "Don't do X", "This approach won't work", "You also need to handle..."
+3. **Technical constraints**: Comments about patterns, limitations, or coordination requirements
+4. **Prior attempt analysis**: Why previous PRs or approaches were rejected
+5. **Sentiment signals**: Frustration, gatekeeping, welcoming tone, urgency
+
+```bash
+# Fetch all comments for thorough review
+ISSUE=1234
+gh issue view "$ISSUE" --repo "$REPO" --json comments \
+  --jq '.comments[] | "\(.author.login) (\(.authorAssociation)) \(.createdAt):\n\(.body)\n---"'
+```
+
+Document findings in the target file under "Issue Thread Intelligence". Every maintainer statement
+that defines requirements or constraints must be captured -- these are implicit acceptance criteria
+that may not appear in the issue description itself.
 
 ### Reproducibility
 
@@ -123,13 +201,30 @@ gh issue view "$ISSUE" --repo "$REPO" --json comments \
   --jq '.comments[].body' | grep -i "work on\|working on\|take this\|claim"
 ```
 
-| Situation                                        | Action                                                                                                        |
-| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| No PRs, no assignee, no claims                   | Proceed                                                                                                       |
-| Assigned but no activity for 30+ days            | Comment asking if it's still being worked on                                                                  |
-| Open PR exists but stale (60+ days, no response) | Check if maintainer requested changes that were never addressed. You may offer to take over.                  |
-| Active PR in progress                            | Move to another issue                                                                                         |
-| Closed PR that was rejected                      | Read why it was rejected. If the approach was wrong but the issue is valid, you can try a different approach. |
+| Situation                                        | Action                                                                                       |
+| ------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| No PRs, no assignee, no claims                   | Proceed                                                                                      |
+| Assigned but no activity for 30+ days            | Comment asking if it's still being worked on                                                 |
+| Open PR exists but stale (60+ days, no response) | Check if maintainer requested changes that were never addressed. You may offer to take over. |
+| Active PR in progress                            | Move to another issue                                                                        |
+| Closed PR that was rejected                      | Perform rejection triage (see below). Classify as technical vs policy.                       |
+
+### Rejection Triage
+
+If ANY previous PR for this issue was closed or rejected, perform a rejection triage before
+proceeding:
+
+1. Read the rejection comment(s) verbatim
+2. Classify each complaint as **TECHNICAL** or **POLICY**
+3. For POLICY rejections (AI, scope, not-wanted): treat as potential hard no-go
+4. For TECHNICAL rejections (wrong approach, bugs, style): verify your approach avoids the same
+   mistakes
+5. If YOUR OWN previous PR was rejected: elevated scrutiny -- re-evaluate honestly whether
+   resubmitting is appropriate or whether you should move to a different issue
+
+**Red flag**: If a rejection used words like "not welcome", "spam", "please don't", this is a policy
+signal regardless of other words in the same sentence. "Untested AI PRs are not welcome" is
+primarily about "AI PRs", not about "untested."
 
 ## Go/No-Go Decision Framework
 
@@ -144,11 +239,13 @@ Score each criterion as Pass/Fail:
 | 5   | You can build the project locally                        | Clone and build              |
 | 6   | Scope is estimable (hours, not weeks)                    | Your judgment                |
 | 7   | You have the required domain knowledge (or can learn it) | Honest self-assessment       |
+| 8   | Repo does not ban AI-assisted contributions              | AI stance check              |
 
 **Decision rules:**
 
-- All 7 pass: Strong go. Proceed to Phase 03.
-- 1-2 fail: Conditional go. Note the risks, decide if they're acceptable.
+- All 8 pass: Strong go. Proceed to Phase 03.
+- 1-2 fail (not #8): Conditional go. Note the risks, decide if they're acceptable.
+- #8 fails: Hard no-go. No exceptions. Return to Phase 01.
 - 3+ fail: No-go. Return to Phase 01 and pick the next candidate.
 
 ## Quick Evaluation Commands

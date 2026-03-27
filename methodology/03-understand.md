@@ -13,6 +13,33 @@ order:
 Build instructions, architecture overview, prerequisites. If you can't build the project, nothing
 else matters.
 
+### 1b. Behavioral Specification Extraction
+
+After reading the README, extract testable behavioral assertions for the features you are modifying.
+This step prevents the gap between "what the docs say the feature does" and "what your code actually
+does."
+
+For each feature you will touch:
+
+1. Find the feature's description in the README, docs, or feature index
+2. Extract the **verb** (moves, hides, adds, replaces, disables)
+3. Write a testable assertion that maps the verb to a concrete DOM/API/behavior outcome
+
+Example:
+
+- README says: "Moves the Security and Insights tabs to the repository navigation dropdown"
+- Assertion: After our code runs, Security/Insights tab elements must exist inside the dropdown menu
+  container, NOT be hidden via CSS `hidden` attribute or `display: none`
+- Verification: Inspect the dropdown, confirm the elements are children of the overflow menu
+
+Document these in the target file under "Behavioral Assertions":
+
+| #   | Source          | Assertion                          | Verified in 04b |
+| --- | --------------- | ---------------------------------- | --------------- |
+| 1   | README line 105 | Tabs moved to dropdown, not hidden | [ ]             |
+
+These assertions become mandatory verification items in Phase 04b.
+
 ### 2. CONTRIBUTING.md
 
 Commit conventions, branch naming, test requirements, code style. These are the rules you must
@@ -194,6 +221,9 @@ Regardless of the language, answer these questions before moving to implementati
 - [ ] Does the repo require a CLA? If yes, is it already signed? (check for contributors.yml,
       CLA.md, or CLA bot in recent PRs)
 - [ ] Do I know the exact CI commands to run locally?
+- [ ] Have I extracted behavioral specs from README/docs for the features I am modifying?
+- [ ] Have I read ALL comments in the issue thread (not just the description)?
+- [ ] Have I documented maintainer requirements from issue comments in my target file?
 
 If any answer is "no", keep exploring before you start implementing.
 

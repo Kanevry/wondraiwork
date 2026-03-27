@@ -42,6 +42,34 @@
 | ---------- | ----------- | ---- | --- | ---------------------------------------- |
 | YYYY-MM-DD | Feasibility | N    | N   | [what changed and why the score shifted] |
 
+## AI Contribution Stance
+
+| Check                         | Result                                             | Notes |
+| ----------------------------- | -------------------------------------------------- | ----- |
+| CONTRIBUTING.md mentions AI   | [ ] Ban / [ ] Restrict / [ ] Welcome / [ ] Silent  |       |
+| AGENTS.md exists              | [ ] Yes / [ ] No                                   |       |
+| On melissawm policy list      | [ ] Banned / [ ] Restricted / [ ] Not listed       |       |
+| Past AI-related PR rejections | [ ] Yes / [ ] No                                   |       |
+| Maintainer comments about AI  | [ ] Hostile / [ ] Neutral / [ ] Welcome / [ ] None |       |
+
+**Classification:** [ ] Explicit ban / [ ] Implicit hostility / [ ] No policy / [ ] Welcome
+
+## Issue Thread Intelligence
+
+Key maintainer statements from the issue thread (extracted during Phase 02):
+
+| Date       | Author | Statement                      | Impact on Approach       |
+| ---------- | ------ | ------------------------------ | ------------------------ |
+| YYYY-MM-DD |        | [verbatim or close paraphrase] | [how this constrains us] |
+
+## Behavioral Assertions
+
+Testable assertions extracted from README/docs (Phase 03):
+
+| #   | Source          | Assertion                                   | Verified in 04b |
+| --- | --------------- | ------------------------------------------- | --------------- |
+| 1   | [README line N] | [what the feature must DO, not just "work"] | [ ]             |
+
 ## Approach
 
 1.

@@ -11,6 +11,19 @@
 - [ ] Scope matches issue description (or deviation is documented and justified)
 - [ ] Not submitting a partial fix disguised as a complete fix
 
+## 1b. Specification Cross-Reference
+
+- [ ] Every behavioral assertion from target file verified against implementation
+- [ ] README-described behavior matches what my code actually does
+- [ ] All maintainer requirements from issue comments addressed
+- [ ] Implementation semantics match spec semantics (move = move, not hide)
+
+## 1c. Issue Thread Coverage
+
+- [ ] Every maintainer comment in issue thread reviewed and documented
+- [ ] No unaddressed maintainer warnings or requirements
+- [ ] Previous PR rejection points (if any) all resolved
+
 ## 2. Visual Validation (skip if no UI changes)
 
 ### Feature works correctly
@@ -64,6 +77,7 @@
 - [ ] K4: Better approach found but not implemented -- NOT TRIGGERED
 - [ ] K5: Unexplained test failures -- NOT TRIGGERED
 - [ ] K6: Cannot explain every line of diff -- NOT TRIGGERED
+- [ ] K7: Previous PR rejected for POLICY reasons -- NOT TRIGGERED
 
 ### Soft Kill (any one = pause and reassess)
 
@@ -72,6 +86,7 @@
 - [ ] S3: Implementation took more than 2x estimated time -- NOT TRIGGERED
 - [ ] S4: Adjacent features broke non-trivially -- NOT TRIGGERED
 - [ ] S5: Issue partially addressed by someone else -- NOT TRIGGERED
+- [ ] S6: Feasibility near hard-kill boundary (4-5/10) -- NOT TRIGGERED
 
 ## Decision
 

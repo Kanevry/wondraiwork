@@ -1,6 +1,11 @@
 # Phase 04b: Verify
 
 > Stop. Step back. Before submitting, prove to yourself that this actually works.
+>
+> **Enforcement**: Kill criteria are binary. If K2 says feasibility below 4/10 is a hard kill, and
+> your feasibility is 3/10, you MUST stop. "But the tests pass" does not override the criterion. The
+> criteria exist precisely to catch cases where subjective confidence diverges from objective
+> signals. A checklist that you override when it's inconvenient is not a checklist -- it is theater.
 
 ## Why This Phase Exists
 
@@ -68,6 +73,31 @@ If your implementation addresses only part of the issue, you have two options:
 2. Go back to Phase 04 and complete the implementation
 
 Never submit a partial fix as if it were complete.
+
+### Check 1b: Specification Cross-Reference
+
+Compare your implementation against the behavioral assertions extracted in Phase 03. This catches
+the gap between "it works" and "it does what the docs say it does."
+
+- [ ] Every behavioral assertion from the target file is verified against actual code behavior
+- [ ] README-described behavior matches what my code actually does (not just "it runs without
+      errors")
+- [ ] All maintainer requirements from issue comments are addressed in the implementation
+- [ ] Implementation semantics match specification semantics (e.g., "move" means move, not hide;
+      "disable" means disable, not remove)
+
+If any assertion fails, go back to Phase 04.
+
+### Check 1c: Issue Thread Coverage
+
+Verify that the full issue thread has been addressed, not just the description.
+
+- [ ] Every maintainer comment in the issue thread has been reviewed
+- [ ] All technical requirements from maintainer comments are addressed
+- [ ] All warnings from maintainers have been heeded or explicitly documented as out-of-scope with
+      rationale
+- [ ] If a previous PR for this issue was rejected, every rejection point is addressed in this
+      submission
 
 ### Check 2: Visual Validation (UI contributions only)
 
@@ -187,24 +217,26 @@ Explicit conditions under which you MUST stop and NOT submit.
 
 ### Hard Kill -- do not submit under any circumstances
 
-| ID  | Criterion                                                       | Why                                                         |
-| --- | --------------------------------------------------------------- | ----------------------------------------------------------- |
-| K1  | Screenshots show the feature visibly not working                | The maintainer will see the same thing                      |
-| K2  | Feasibility score dropped below 4/10 during implementation      | The approach is fundamentally struggling                    |
-| K3  | The approach requires working around the project's architecture | You are fighting the codebase, not extending it             |
-| K4  | A better approach was discovered but not implemented            | Submit the right fix, not the sunk-cost fix                 |
-| K5  | Test suite has failures you cannot explain                      | Unexplained failures signal uncontrolled side effects       |
-| K6  | You cannot explain every line of your diff                      | You do not own this code well enough to defend it in review |
+| ID  | Criterion                                                       | Why                                                                |
+| --- | --------------------------------------------------------------- | ------------------------------------------------------------------ |
+| K1  | Screenshots show the feature visibly not working                | The maintainer will see the same thing                             |
+| K2  | Feasibility score dropped below 4/10 during implementation      | The approach is fundamentally struggling                           |
+| K3  | The approach requires working around the project's architecture | You are fighting the codebase, not extending it                    |
+| K4  | A better approach was discovered but not implemented            | Submit the right fix, not the sunk-cost fix                        |
+| K5  | Test suite has failures you cannot explain                      | Unexplained failures signal uncontrolled side effects              |
+| K6  | You cannot explain every line of your diff                      | You do not own this code well enough to defend it in review        |
+| K7  | Previous PR for same issue was rejected for POLICY reasons      | Policy rejections (AI, not-wanted) rarely reverse with better code |
 
 ### Soft Kill -- pause, reassess, document before continuing
 
-| ID  | Criterion                                                   | Action                                                         |
-| --- | ----------------------------------------------------------- | -------------------------------------------------------------- |
-| S1  | Feasibility score dropped 3+ points from initial evaluation | Log the reasons, reassess if partial submission is appropriate |
-| S2  | Scope expanded beyond original issue description            | Split into multiple PRs or discuss scope with maintainer first |
-| S3  | Implementation required more than 2x estimated time         | Document why, reassess value/effort ratio                      |
-| S4  | Adjacent features broke and the fix is non-trivial          | Might indicate the approach is wrong, not just incomplete      |
-| S5  | The issue has been partially addressed by someone else      | Re-scope to avoid overlap                                      |
+| ID  | Criterion                                                   | Action                                                                |
+| --- | ----------------------------------------------------------- | --------------------------------------------------------------------- |
+| S1  | Feasibility score dropped 3+ points from initial evaluation | Log the reasons, reassess if partial submission is appropriate        |
+| S2  | Scope expanded beyond original issue description            | Split into multiple PRs or discuss scope with maintainer first        |
+| S3  | Implementation required more than 2x estimated time         | Document why, reassess value/effort ratio                             |
+| S4  | Adjacent features broke and the fix is non-trivial          | Might indicate the approach is wrong, not just incomplete             |
+| S5  | The issue has been partially addressed by someone else      | Re-scope to avoid overlap                                             |
+| S6  | Feasibility score is near the hard-kill boundary (4-5/10)   | You may be rationalizing -- document why you think it is still viable |
 
 ### Kill Decision Process
 
