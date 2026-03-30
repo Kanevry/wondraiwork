@@ -37,3 +37,9 @@ screenshot-*.png
 
 # Build artifacts
 dist/
+.env.local
+.env.production
+.env.*.local
+
+# Claude Code
+.claude/worktrees/
