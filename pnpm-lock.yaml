@@ -11,9 +11,9 @@ importers:
       '@commitlint/cli':
         specifier: ^19.0.0
         version: 19.8.1(@types/node@25.5.0)(typescript@6.0.2)
-      '@goetzendorfer/commitlint-config':
-        specifier: ^1.1.2
-        version: 1.1.2(@commitlint/cli@19.8.1(@types/node@25.5.0)(typescript@6.0.2))
+      '@commitlint/config-conventional':
+        specifier: ^19.0.0
+        version: 19.8.1
       husky:
         specifier: ^9.0.0
         version: 9.1.7
@@ -102,15 +102,6 @@ packages:
   '@commitlint/types@19.8.1':
     resolution: {integrity: sha512-/yCrWGCoA1SVKOks25EGadP9Pnj0oAIHGpl2wH2M2Y46dPM2ueb8wyCVOD7O3WCTkaJ0IkKvzhl1JY7+uCT2Dw==}
     engines: {node: '>=v18'}
-
-  '@goetzendorfer/commitlint-config@1.1.2':
-    resolution: {integrity: sha1-mSg3Qv+RM63IJePvSpZ1MMNpJcM=, tarball: https://gitlab.gotzendorfer.at/api/v4/projects/52/packages/npm/@goetzendorfer/commitlint-config/-/@goetzendorfer/commitlint-config-1.1.2.tgz}
-    engines: {node: '>=24'}
-    peerDependencies:
-      '@commitlint/cli': ^19.0.0
-    peerDependenciesMeta:
-      '@commitlint/cli':
-        optional: true
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -825,12 +816,6 @@ snapshots:
     dependencies:
       '@types/conventional-commits-parser': 5.0.2
       chalk: 5.6.2
-
-  '@goetzendorfer/commitlint-config@1.1.2(@commitlint/cli@19.8.1(@types/node@25.5.0)(typescript@6.0.2))':
-    dependencies:
-      '@commitlint/config-conventional': 19.8.1
-    optionalDependencies:
-      '@commitlint/cli': 19.8.1(@types/node@25.5.0)(typescript@6.0.2)
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
